@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="mail.activity_items">
+        <t t-jquery=".o_thread_message_collapse" t-operation="after">
+            <t t-if="activity.res_model == 'res.partner'">
+                <p>
+                <!--<em> from </em>-->
+                    <em>
+                        <t t-esc="activity.res_name" />
+                    </em>
+                </p>
+            </t>
+        </t>
+    </t>
+</templates>

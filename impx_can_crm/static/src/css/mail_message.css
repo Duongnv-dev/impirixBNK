@@ -1,0 +1,25 @@
+.hide-message{
+    display: none
+}
+.message-action-show-more{
+     cursor:pointer;
+     font-size: 12px;
+     color: #1779dd;
+}
+.message-action-show-more:hover{
+    color: #5ea0e2;
+}
+
+.overflow-content-chat {
+    max-height: 400px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.show-more {
+    color: #3399FF;
+    opacity: 0.7;
+    transition: 0.3s;
+}
+
+.show-more:hover {opacity: 1.5}

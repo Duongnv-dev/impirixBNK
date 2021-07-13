@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="cannabis_license_tree_view" model="ir.ui.view">
+        <field name="name">cannabis_license_tree_view</field>
+        <field name="model">cannabis.license</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="license_type"/>
+                <field name="note"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="cannabis_license_form_view" model="ir.ui.view">
+        <field name="name">cannabis_license_form_view</field>
+        <field name="model">cannabis.license</field>
+        <field name="arch" type="xml">
+            <form>
+                 <header>
+                    <button string='Generate Package Number' class='btn-primary'
+                            name="impx_can_general.action_generate_package_tag_number"
+                            type="action" context="{'default_cannabis_license_id':active_id}"/>
+                </header>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="license_type"/>
+                    </group>
+                    <group>
+                        <field name="active"/>
+                        <field name="note"/>
+                    </group>
+                    <notebook>
+
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="cannabis_license_action" model="ir.actions.act_window">
+        <field name="name">Cannabis License</field>
+        <field name="res_model">cannabis.license</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="cannabis_license_menu" name="Cannabis License"
+              parent="base.menu_users"
+              action="cannabis_license_action" sequence="100"/>
+</odoo>

@@ -1,0 +1,8 @@
+<odoo>
+    <data>
+        <record model="ir.config_parameter" id="auth_sync_external_event">
+            <field name="key">auth_sync_external_event</field>
+            <field name="value">8C453646TZ812M163AE605</field>
+        </record>
+    </data>
+</odoo>

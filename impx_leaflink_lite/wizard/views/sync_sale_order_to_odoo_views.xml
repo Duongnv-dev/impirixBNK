@@ -1,0 +1,31 @@
+<odoo>
+    <record id="sync_orders_ll_view_form" model="ir.ui.view">
+        <field name="name">sync_orders_ll_view_form</field>
+        <field name="model">sync.sale.orders</field>
+        <field name="arch" type="xml">
+            <form string="Sync Orders">
+                <group>
+                    <group string="Filter by the created_on date">
+                        <field name="created_on_gte" placeholder="Greater than or equal to"/>
+                        <field name="created_on_lte" placeholder="Less than or equal to"/>
+                    </group>
+                    <group>
+                        <field name="not_sandbox"/>
+                    </group>
+                </group>
+                <footer>
+                    <button string="Sync" type="object" name="sync_sale_orders_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_orders_ll" model="ir.actions.act_window">
+        <field name="name">Sync Orders</field>
+        <field name="res_model">sync.sale.orders</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_orders_ll_view_form"/>
+    </record>
+</odoo>

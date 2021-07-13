@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_metrc_adjust_package_reason_all,metrc_adjust_package_reason_all,model_metrc_adjust_package_reason,,1,0,0,0
+access_metrc_adjust_package_reason_group_erp_manager,metrc_adjust_package_reason_group_erp_manager,model_metrc_adjust_package_reason,base.group_erp_manager,1,1,1,1

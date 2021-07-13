@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="notify_batch_update_need_to_confirm_email_template" model="mail.template">
+            <field name="name">Colorado License Updates Notify</field>
+            <field name="model_id" ref="impx_can_co_customers.model_batch_update_customer"/>
+            <field name="email_from"></field>
+            <field name="partner_to"></field>
+            <field name="email_cc"></field>
+            <field name="subject">Notify for Colorado License Updates(Ref ${object.name or 'n/a' })</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear,
+                        <br /><br />
+                        The Colorado state MED list has been checked for new or removed licenses. The data for an update was prepared in Odoo system
+                        <br /><br />
+                        % if object.batch_url:
+                            Please click on
+                                <a href="${object.batch_url}"><span style="color: #3399FF !important">View Detail</span></a>
+                            to validate the update.
+                        % endif
+                        % if not object.batch_url:
+                            Please log in and validate the update.
+                        % endif
+                    </p>
+                </div>
+            </field>
+            <!--<field name="lang">${object.user_id.lang}</field>-->
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="False"/>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="crm_activity_report_view_graph" model="ir.ui.view">
+        <field name="name">impirix.crm.activity.report.graph</field>
+        <field name="model">impirix.crm.activity.report</field>
+        <field name="arch" type="xml">
+            <graph string="Activities Analysis" stacked="True">
+                <field name="mail_activity_type_id" type="col"/>
+                <field name="date" interval="month" type="row"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="crm_activity_report_view_pivot" model="ir.ui.view">
+        <field name="name">impirix.crm.activity.report.pivot</field>
+        <field name="model">impirix.crm.activity.report</field>
+        <field name="arch" type="xml">
+            <pivot string="Activities Analysis" disable_linking="True">
+                <field name="mail_activity_type_id" type="col"/>
+                <field name="date" interval="month" type="row"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="crm_activity_report_view_form" model="ir.ui.view">
+        <field name="name">impirix.crm.activity.report.form</field>
+        <field name="model">impirix.crm.activity.report</field>
+        <field name="arch" type="xml">
+            <form create="false" edit="false" detele="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="user_id"/>
+                            <field name="partner_id"/>
+                            <field name="lead_type"/>
+                            <field name="date"/>
+                            <field name="author_id"/>
+                            <field name="mail_activity_type_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="lead_create_date"/>
+                            <field name="date_conversion"/>
+                            <field name="date_deadline"/>
+                            <field name="date_closed"/>
+                            <field name="team_id"/>
+                            <field name="stage_id"/>
+                            <field name="country_id"/>
+                            <field name="active"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Activity Description">
+                            <field name="body"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="crm_activity_report_view_tree" model="ir.ui.view">
+        <field name="name">impirix.crm.activity.report.tree</field>
+        <field name="model">impirix.crm.activity.report</field>
+        <field name="arch" type="xml">
+            <tree default_order="date desc">
+                <field name="name"/>
+                <field name="user_id"/>
+                <field name="partner_id"/>
+<!--                <field name="lead_type"/>-->
+                <field name="date"/>
+                <field name="author_id"/>
+                <field name="mail_activity_type_id"/>
+                <field name="body"/>
+                <field name="company_id" groups="base.group_multi_company"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="crm_activity_report_view_search" model="ir.ui.view">
+        <field name="name">impirix.crm.activity.report.search</field>
+        <field name="model">impirix.crm.activity.report</field>
+        <field name="arch" type="xml">
+            <search string="Activities Analysis">
+                <field name="mail_activity_type_id" string="Activity Type"/>
+                <field name="lead_id" string="Opportunity"/>
+                <field name="user_id" string="Salesperson"/>
+                <field name="team_id" context="{'invisible_team': False}"/>
+                <field name="author_id" string="Assigned To"/>
+                <separator groups="crm.group_use_lead"/>
+                <filter string="Leads" name="lead" domain="[('lead_type', '=', 'lead')]" help="Show only lead" groups="crm.group_use_lead"/>
+                <filter string="Opportunities" name="opportunity" domain="[('lead_type', '=', 'opportunity')]" help="Show only opportunity" groups="crm.group_use_lead"/>
+                <separator/>
+                <filter string="Won" name="won" domain="[('stage_id.is_won', '=', True)]"/>
+                <separator/>
+                <filter string="Completed Last 365 Days" name="completion_date" domain="[
+                    ('date', '>=', (datetime.datetime.combine(context_today() + relativedelta(days=-365), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S')),
+                    ('date', '&lt;', (datetime.datetime.combine(context_today(), datetime.time(0,0,0)).to_utc()).strftime('%Y-%m-%d %H:%M:%S'))]"/>
+                <separator/>
+                <filter string="Archived" name="inactive" domain="[('active', '=', False)]"/>
+                <separator/>
+                <filter string="Today" name="date_today" domain="[('time_range', '&gt;=', 'to_day'),('time_range', '&lt;=', 'to_day')]"/>
+
+                <filter string="Yesterday" name="date_yesterday" domain="[('time_range', '&gt;=', 'yesterday'),('time_range', '&lt;=', 'yesterday')]"/>
+
+                <filter string="This week" name="date_this_week" domain="[('time_range', '&gt;=', 'this_week'),('time_range', '&lt;=', 'this_week')]"/>
+
+                <filter string="Last week" name="date_last_week" domain="[('time_range', '&gt;=', 'last_week'),('time_range', '&lt;=', 'last_week')]"/>
+
+                <filter string="This month" name="date_this_month" domain="[('time_range', '&gt;=', 'this_month'),('time_range', '&lt;=', 'this_month')]"/>
+
+                <filter string="Last month" name="date_last_month" domain="[('time_range', '&gt;=', 'last_month'),('time_range', '&lt;=', 'last_month')]"/>
+
+                <filter string="This quarter" name="date_this_quarter" domain="[('time_range', '&gt;=', 'this_quarter'),('time_range', '&lt;=', 'this_quarter')]"/>
+
+                <filter string="Last quarter" name="date_last_quarter" domain="[('time_range', '&gt;=', 'last_quarter'),('time_range', '&lt;=', 'last_quarter')]"/>
+
+                <filter string="This year" name="date_this_year" domain="[('time_range', '&gt;=', 'this_year'),('time_range', '&lt;=', 'this_year')]"/>
+
+                <filter string="Last year" name="date_last_year" domain="[('time_range', '&gt;=', 'last_year'),('time_range', '&lt;=', 'last_year')]"/>
+
+                <separator/>
+                <filter string="Exclude Opportunities" name="partner_activities" domain="[('lead_type', '=', 'partner')]"/>
+
+                <group expand="1" string="Group By">
+                    <filter string="Activity" name="group_by_activity_type" context="{'group_by': 'mail_activity_type_id'}"/>
+                    <filter string="Type" name="group_by_subtype" context="{'group_by': 'subtype_id'}"/>
+                    <filter string="Assigned To" name="group_by_author_id" context="{'group_by': 'author_id'}"/>
+                    <filter string="Completion Date" name="group_by_completion_date" context="{'group_by': 'date:month'}"/>
+                    <separator/>
+                    <filter string="Salesperson" name="group_by_user_id" context="{'group_by': 'user_id'}"/>
+                    <filter string="Sales Team" name="saleschannel" context="{'group_by': 'team_id'}"/>
+                    <filter string="Stage" name="stage" context="{'group_by': 'stage_id'}"/>
+                    <filter string="Company" name="company" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                    <filter string="Creation Date" name="group_by_lead_date_creation" context="{'group_by': 'lead_create_date'}"/>
+                    <filter string="Expected Closing" name="group_by_date_deadline" context="{'group_by': 'date_deadline'}"/>
+                    <filter string="Closed Date" name="group_by_date_closed" context="{'group_by': 'date_closed'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+   <record id="crm_activity_report_action" model="ir.actions.act_window">
+       <field name="name">Customer Activities</field>
+       <field name="res_model">impirix.crm.activity.report</field>
+       <field name="view_mode">graph,pivot,tree,form</field>
+       <field name="context">{
+            'pivot_column_groupby': ['subtype_id', 'mail_activity_type_id'],
+            'pivot_row_groupby': ['date:month'],
+            'graph_mode': 'bar',
+            'graph_groupbys': ['date:month', 'subtype_id'],
+        }</field>
+       <field name="domain">[]</field>
+   </record>
+
+   <menuitem
+        id="crm_activity_report_menu"
+        name="Customer Activities"
+        groups="sales_team.group_sale_manager"
+        parent="crm.crm_menu_report"
+        action="crm_activity_report_action"
+        sequence="20"/>
+
+   <record id="crm_activity_report_action_team" model="ir.actions.act_window">
+       <field name="name">Pipeline Activities</field>
+       <field name="res_model">impirix.crm.activity.report</field>
+       <field name="view_mode">graph,pivot,tree</field>
+       <field name="context">{'search_default_team_id': active_id}</field>
+       <field name="domain">[]</field>
+   </record>
+
+    <menuitem
+            id="crm.crm_activity_report_menu"
+            name="Pipeline Activities"
+            groups="sales_team.group_sale_manager"
+            parent="crm.crm_menu_report"
+            action="crm.crm_activity_report_action"
+            sequence="3"/>
+
+</odoo>

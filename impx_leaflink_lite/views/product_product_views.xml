@@ -1,0 +1,138 @@
+<odoo>
+
+    <record id="xpath_product_uom_form_view" model="ir.ui.view">
+        <field name="name">xpath_product_uom_form_view</field>
+        <field name="model">uom.uom</field>
+        <field name="inherit_id" ref="uom.product_uom_form_view"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="name_ll"/>
+            </field>
+        </field>
+    </record>
+
+    <record id="xpath_product_normal_form_view" model="ir.ui.view">
+        <field name="name">xpath_product_normal_form_view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <field name="image_1920" position="attributes">
+                <attribute name="attrs">{'invisible': [('image_1920', '=', False)]}</attribute>
+                <attribute name="attrs">{'readonly': 1}</attribute>
+            </field>
+            <xpath expr="//header" position="inside">
+                <button name="sync_to_leaf_link" type="object" string="Sync to LeafLink" class="oe_highlight"
+                attrs="{'invisible':[('ll_connect','=',False)]}"/>
+                <field name="parent_id" invisible="1"/>
+            </xpath>
+
+            <xpath expr="//div[@name='button_box']" position="inside">
+                <button string="Metrc Package tags" icon="fa-barcode"/>
+                <button string="Sync History" icon="fa-th-list"/>
+            </xpath>
+
+            <xpath expr="//div[@name='options']" position="replace">
+                <table>
+                    <tr>
+                        <td>
+                            <field name="sale_ok"/>
+                            <label for="sale_ok"/>
+                        </td>
+                        <td>
+                            <field name="ll_connect"/>
+                            <label for="ll_connect"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <field name="purchase_ok"/>
+                            <label for="purchase_ok"/>
+                        </td>
+                        <td>
+                            <field name="metrc_connect"/>
+                            <label for="metrc_connect"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <field name="is_cannabis"/>
+                            <label for="is_cannabis"/>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </table>
+            </xpath>
+            <xpath expr="//notebook" position="inside">
+                <page string="LeafLink Information">
+                    <group>
+                        <group>
+                            <field name="id_ll"/>
+                            <field name="sku" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="extern_sts_ids"/>
+                            <field name="leaflink_category_id" attrs="{'required':[('ll_connect','=',True)]}"/>
+                        </group>
+                        <group>
+                            <field name="retail_price" widget="monetary" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="wholesale_price" widget="monetary" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="minimum_order" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="maximum_order" attrs="{'required':[('ll_connect','=',True)]}"/>
+                        </group>
+                    </group>
+
+                    <group>
+                        <group>
+                            <field name="unit_denomination" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="strain_ids" widget="many2many_tags"/>
+                            <field name="strain_classification" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="brand_id" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="product_line_id" domain="[('brand_id', '=', brand_id)]"/>
+                        </group>
+                        <group>
+                            <field name="inventory_management" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="manufacturer" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="seller" attrs="{'required':[('ll_connect','=',True)]}"/>
+                            <field name="listing_state" attrs="{'required':[('ll_connect','=',True)]}"/>
+                        </group>
+                    </group>
+
+                    <group name="product_variant_images" string="Extra Product Image">
+                        <field name="product_image_ids" class="o_product_images_list"
+                               options="{'create_text':'Add a Image'}" mode="kanban" nolabel="1"
+                               context="{'default_product_id': id}"/>
+                    </group>
+                    <separator string="Description"/>
+                    <field name="des"/>
+                    <separator string="Sync LeafLink Note"/>
+                    <field name="log_note_ll"/>
+                </page>
+
+            </xpath>
+        </field>
+    </record>
+
+    <record id="xpath_product_category_form_view" model="ir.ui.view">
+        <field name="name">xpath_product_category_form_view</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <field name="parent_id" position="attributes">
+                <attribute name="domain">[('parent_id', '=', False)]</attribute>
+            </field>
+        </field>
+    </record>
+    <record id="xpath_stock_product_search_form_view" model="ir.ui.view">
+        <field name="name">xpath_stock_product_search_form_view</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="stock.stock_product_search_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='real_stock_negative']" position="after">
+                <separator/>
+                <filter name="connected_to_leafLink" string="Connected to LeafLink" domain="[('ll_connect', '=', True)]"/>
+                <separator/>
+                <filter name="connected_to_metrc" string="Connected to Metrc" domain="[('metrc_connect', '=', True)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

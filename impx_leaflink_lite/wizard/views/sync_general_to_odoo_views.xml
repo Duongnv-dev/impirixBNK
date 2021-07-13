@@ -1,0 +1,43 @@
+<odoo>
+    <record id="sync_strains_ll_view_form" model="ir.ui.view">
+        <field name="name">sync_strains_ll_view_form</field>
+        <field name="model">sync.strains</field>
+        <field name="arch" type="xml">
+            <form string="Sync Strains">
+                <footer>
+                    <button string="Sync" type="object" name="action_sync_strains_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_strains_ll" model="ir.actions.act_window">
+        <field name="name">Sync Strains</field>
+        <field name="res_model">sync.strains</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_strains_ll_view_form"/>
+    </record>
+
+    <record id="sync_bands_view_form" model="ir.ui.view">
+        <field name="name">sync_bands_view_form</field>
+        <field name="model">sync.brands</field>
+        <field name="arch" type="xml">
+            <form string="Brands">
+                <footer>
+                    <button string="Sync" type="object" name="sync_brands_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_bands" model="ir.actions.act_window">
+        <field name="name">Sync Brands</field>
+        <field name="res_model">sync.brands</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_bands_view_form"/>
+    </record>
+</odoo>

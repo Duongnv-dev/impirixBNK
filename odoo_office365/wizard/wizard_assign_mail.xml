@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="wizard_add_special_mail_form_view" model="ir.ui.view">
+        <field name="name">wizard.add.special.mail.form.view</field>
+        <field name="model">wizard.add.special.mail</field>
+        <field name="arch" type="xml">
+            <form>
+                <separator string="Email addresses"/>
+                <field name="office_sync_id" invisible="1"/>
+                <field name="special_email_ids" widget="many2many_tags" string="Email addresses"/>
+                <footer>
+                    <button name="save_special_mails"
+                                type="object" string="Apply"
+                                class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_wizard_add_special_mail">
+        <field name="name">Edit Hidden email addresses</field>
+        <field name="res_model">wizard.add.special.mail</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="wizard_suggest_special_mail_form_view" model="ir.ui.view">
+        <field name="name">wizard.suggest.special.mail.form.view</field>
+        <field name="model">wizard.suggest.special.mail</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="office_mail_id" invisible="1"/>
+                    <field name="suggest_mail_address_ids" widget="many2many_tags"
+                           string="Emails from this addresses will be hidden. No need to match to customers or opportunities."/>
+                </group>
+                <group>
+                     <field name="check_similar"
+                            string="Hide all other emails from these addresses:"/>
+                </group>
+                <footer>
+                    <button name="apply_add_special_mail"
+                                type="object" string="Apply"
+                                class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_wizard_suggest_special_mail">
+        <field name="name">Hide email</field>
+        <field name="res_model">wizard.suggest.special.mail</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+
+    <record id="wizard_assign_mail_form_view" model="ir.ui.view">
+        <field name="name">wizard.assign.mail.form.view</field>
+        <field name="model">wizard.assign.mail</field>
+        <field name="arch" type="xml">
+            <form string="Assign email">
+                <separator string="Email will be attached to the Customer or Opportunity selected below"/>
+                <group>
+                    <group>
+                        <field name="type" readonly="1"/>
+                        <field name="email_from" readonly="1"/>
+                    </group>
+                    <group>
+                        <field name="email_to" readonly="1"/>
+                        <field name="email_cc" readonly="1"/>
+                        <field name="email_bcc" readonly="1"/>
+                    </group>
+                </group>
+                <group>
+                    <field name="author_id"
+                           attrs="{'readonly': [('type', '=', 'outbox')]}"
+                           string="From contact"/>
+                </group>
+                <group>
+                    <field name="office_mail" invisible="1"/>
+                    <group>
+                        <field name="partner_ids" widget="many2many_tags" string="Customer"/>
+                    </group>
+                    <group>
+                        <field name="crm_lead_ids" widget="many2many_tags" domain="[('partner_id', 'in', partner_ids)]"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="assign_mail_to_partner_opportunity"
+                                type="object" string="Assign"
+                                class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_wizard_assign_mail">
+        <field name="name">Assign Email</field>
+        <field name="res_model">wizard.assign.mail</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="wizard_suggest_assign_mail_form_view" model="ir.ui.view">
+        <field name="name">wizard.suggest.assign.mail.form.view</field>
+        <field name="model">wizard.suggest.assign.mail</field>
+        <field name="arch" type="xml">
+            <form string="Suggest assign mail">
+                <separator string='There is a list emails of similar customers.
+                Click “Auto Re-Assign" for apply all changes or “Cancel" to apply change only this email.'/>
+                <group>
+                    <field name="similar_mail_numbers" string="Number of similar hints"/>
+                </group>
+                <notebook>
+                    <page string="Similar hints">
+                        <field name="office_mail_ids">
+                            <tree delete="true" decoration-info="type=='inbox'" decoration-danger="type=='outbox'">
+                                <field name="date"/>
+                                <field name="type"/>
+                                <field name="subject"/>
+                                <field name="email_from"/>
+                                <field name="email_to"
+                                       string="To &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+                &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"/>
+                                <field name="email_cc"/>
+                                <field name="email_bcc"/>
+                                <field name="user_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+                <footer>
+                    <button name="re_auto_assign_by_suggest"
+                                type="object" string="Auto Re-Assign"
+                                class="btn-primary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_wizard_suggest_assign_mail">
+        <field name="name">Suggest assign email</field>
+        <field name="res_model">wizard.suggest.assign.mail</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+</odoo>

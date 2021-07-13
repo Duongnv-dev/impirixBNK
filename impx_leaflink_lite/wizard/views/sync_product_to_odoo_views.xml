@@ -1,0 +1,89 @@
+<odoo>
+
+    <record id="sync_product_lines_view_form" model="ir.ui.view">
+        <field name="name">sync_product_lines_view_form</field>
+        <field name="model">sync.product.lines</field>
+        <field name="arch" type="xml">
+            <form string="Sync Product Lines">
+                <footer>
+                    <button string="Sync" type="object" name="sync_product_lines_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_product_lines" model="ir.actions.act_window">
+        <field name="name">Sync Product Lines</field>
+        <field name="res_model">sync.product.lines</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_product_lines_view_form"/>
+    </record>
+
+
+
+    <record id="sync_product_categories_view_form" model="ir.ui.view">
+        <field name="name">sync_product_categories_view_form</field>
+        <field name="model">sync.product.categories</field>
+        <field name="arch" type="xml">
+            <form string="Sync Product Categories">
+                <footer>
+                    <button string="Sync" type="object" name="sync_product_categories_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_product_categories" model="ir.actions.act_window">
+        <field name="name">Sync Product Categories</field>
+        <field name="res_model">sync.product.categories</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_product_categories_view_form"/>
+    </record>
+
+    <record id="sync_products_view_form" model="ir.ui.view">
+        <field name="name">sync_products_view_form</field>
+        <field name="model">sync.products</field>
+        <field name="arch" type="xml">
+            <form string="Sync Products">
+                <footer>
+                    <button string="Sync" type="object" name="sync_products_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_products" model="ir.actions.act_window">
+        <field name="name">Sync Products</field>
+        <field name="res_model">sync.products</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_products_view_form"/>
+    </record>
+
+    <record id="sync_product_images_ll_view_form" model="ir.ui.view">
+        <field name="name">sync_product_images_ll_view_form</field>
+        <field name="model">sync.product.images</field>
+        <field name="arch" type="xml">
+            <form string="Sync Product Images">
+                <footer>
+                    <button string="Sync" type="object" name="sync_product_images_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_product_images_ll" model="ir.actions.act_window">
+        <field name="name">Sync Product Images</field>
+        <field name="res_model">sync.product.images</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_product_images_ll_view_form"/>
+    </record>
+
+</odoo>

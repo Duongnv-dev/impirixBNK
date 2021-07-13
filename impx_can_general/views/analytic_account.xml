@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_account_analytic_account_list_inherit" model="ir.ui.view">
+        <field name="name">view.account.analytic.account.list.inherit</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_list"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="cannabis_license_id"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_account_analytic_account_form_inherit" model="ir.ui.view">
+        <field name="name">view.account.analytic_account_form_inherit</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='active']" position="after">
+                <field name="cannabis_license_id" domain="[('license_unique', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

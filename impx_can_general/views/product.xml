@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_normal_form_view_add_cannabis_license" model="ir.ui.view">
+        <field name="name">product.normal.form.view.add.cannabis.license</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='categ_id']" position="after">
+                <field name="cannabis_license_id"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

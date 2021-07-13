@@ -1,0 +1,56 @@
+<odoo>
+    <record id="batch_update_leaf_link_form_view" model="ir.ui.view">
+        <field name="name">batch.update.leaf.link.form.view</field>
+        <field name="model">batch.update.leaf.link</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <h2>
+                        <b>
+                            <field name="name"/>
+                        </b>
+                    </h2>
+                    <group>
+                        <field name="batch_url" widget="url" invisible="1"/>
+                        <field name="log" readonly="1"/>
+                    </group>
+                    <notebook>
+                        <page string="Customer updated">
+                            <field name="partner_ids" readonly="1">
+                                <tree>
+                                    <field name="leaf_link_customer_id"/>
+                                    <field name="name"/>
+                                    <field name="phone"/>
+                                    <field name="mobile"/>
+                                    <field name="email"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Customer not found">
+                            <field name="partner_not_fond" readonly="1"/>
+                        </page>
+                    </notebook>
+                </sheet>
+
+            </form>
+        </field>
+    </record>
+
+        <record id="batch_update_leaf_link_tree_view" model="ir.ui.view">
+            <field name="name">batch.update.leaf.link.tree.view</field>
+            <field name="model">batch.update.leaf.link</field>
+            <field name="arch" type="xml">
+                <tree default_order="id desc">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="leaf_link_report_action" model="ir.actions.act_window">
+            <field name="name">LeafLink Updates</field>
+            <field name="res_model">batch.update.leaf.link</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="leaf_link_report" name="LeafLink Updates" parent="crm.menu_crm_config_lead" action="leaf_link_report_action"/>
+</odoo>

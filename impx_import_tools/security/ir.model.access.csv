@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_impx_import_account_user,impx.import.account.user,model_impx_import,account.group_account_user,1,0,0,0
+access_impx_import_account_manager,impx.import.account.manager,model_impx_import,account.group_account_manager,1,1,1,1
+access_impx_account_import_account_user,impx.account.import.account.user,model_impx_account_import,account.group_account_user,1,0,0,0
+access_impx_account_import_account_manager,impx.account.import.account.manager,model_impx_account_import,account.group_account_manager,1,1,1,1
+access_impx_account_import_line_account_user,impx.account.import.line.account.user,model_impx_account_import_line,account.group_account_user,1,0,0,0
+access_impx_account_import_line_account_manager,impx.account.import.line.account.manager,model_impx_account_import_line,account.group_account_manager,1,1,1,1

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="generate_package_tags_form_view_inherit" model="ir.ui.view">
+        <field name="name">generate.package.tags.form.view.inherit</field>
+        <field name="model">cannabis.license</field>
+        <field name="inherit_id" ref="impx_can_general.cannabis_license_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Package number information">
+                    <group>
+                        <field name="package_tags_ids" readonly="1" nolabel="1">
+                            <tree>
+                                <field name="label"/>
+                                <field name="metrc_id"/>
+                                <field name="active"/>
+                                <field name="metrc_sync_state"/>
+                                <field name="receive_date"/>
+                                <field name="create_date"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

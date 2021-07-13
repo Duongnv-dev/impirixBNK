@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="impx_can_mrp_workorder_view_form_tablet" model="ir.ui.view">
+        <field name="name">mrp.workorder.view.form.inherit.quality.tablet.new.inherit</field>
+        <field name="model">mrp.workorder</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="mrp_workorder.mrp_workorder_view_form_tablet"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/div[@class='o_workorder_data']/div[@class='o_workorder_bar_content o_workorder_form']/div[@class='o_workorder_field']/div[@class='o_workorder_lot']/field[@name='lot_id']" position="after">
+                <field name="is_need_split_package" invisible="1"/>
+                <button name="action_split_package" type="object" class="btn-primary" string="Split" attrs="{'invisible': [('is_need_split_package', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

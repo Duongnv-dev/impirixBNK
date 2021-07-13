@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="impx_account_import_line_form_view" model="ir.ui.view">
+        <field name="name">impx.account.import.line.form</field>
+        <field name="model">impx.account.import.line</field>
+        <field name="arch" type="xml">
+            <form string="Impx Account Import Line">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="account" />
+                            <field name="description"/>
+                        </group>
+                        <group>
+                            <field name="debit" />
+                            <field name="credit"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="impx_import_tree_view" model="ir.ui.view">
+        <field name="name">impx.import.tree</field>
+        <field name="model">impx.import</field>
+        <field name="arch" type="xml">
+            <tree string="Impx Account Data Import">
+                <field name="name"/>
+                <field name="date_action"/>
+                <field name="user_id"/>
+                <field name="file_name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="impx_account_import_tree_view" model="ir.ui.view">
+        <field name="name">impx.account.import.tree</field>
+        <field name="model">impx.account.import</field>
+        <field name="arch" type="xml">
+            <tree string="Impx Account Data" decoration-danger="state=='fail'"
+                  decoration-success="state=='success'">
+                <field name="accounting_date"/>
+                <field name="transaction_type"/>
+                <field name="reference"/>
+                <field name="partner"/>
+                <field name="state"/>
+                <field name="journal_entry_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="impx_account_import_form_view" model="ir.ui.view">
+        <field name="name">impx.account.import.form</field>
+        <field name="model">impx.account.import</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="accounting_date"/>
+                            <field name="transaction_type"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="partner"/>
+                            <field name="reference"/>
+                        </group>
+                        <group>
+                            <field name="journal_entry_id" attrs="{'invisible': [('state','!=','success')]}"/>
+                            <field name="note" attrs="{'invisible': [('state','!=','fail')]}"/>
+                        </group>
+                    </group>
+                    <field name="impx_import_line_ids"  nolabel="1" widget="one2many"
+                    context="{'tree_view_ref':'impx_account_move_import.impx_account_import_line_tree_view',
+                    'form_view_ref':'impx_account_move_import.impx_account_import_line_form_view'}"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="impx_account_import_search_view" model="ir.ui.view">
+            <field name="name">impx.account.import.search</field>
+            <field name="model">impx.account.import</field>
+            <field name="priority">1</field>
+            <field name="arch" type="xml">
+                <search string="Search Impx Account Data">
+                    <filter name="success" string="Import success" domain="[('state', '=', 'success')]"/>
+                    <filter name="fail" string="Import fail" domain="[('state', '=', 'fail')]"/>
+                    <filter name="ready" string="Not imported yet" domain="[('state', '=', 'ready')]"/>
+                    <separator/>
+                    <filter name="group_transaction_type" string="Journal Type" context="{'group_by':'transaction_type'}"/>
+                </search>
+            </field>
+        </record>
+
+    <record id="impx_account_import_line_tree_view" model="ir.ui.view">
+        <field name="name">impx.account.import.line.tree</field>
+        <field name="model">impx.account.import.line</field>
+        <field name="arch" type="xml">
+            <tree string="Impx Account Import Line">
+                <field name="account"/>
+                <field name="description"/>
+                <field name="debit" sum="Total"/>
+                <field name="credit" sum="Total"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="impx_import_form_view" model="ir.ui.view">
+        <field name="name">impx_import.form</field>
+        <field name="model">impx.import</field>
+        <field name="arch" type="xml">
+            <form string="Impx Account Data Import">
+                <header>
+                    <button type="object" name="sync_account_data" string="Sync Data" class="oe_highlight"/>
+                </header>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date_action"/>
+                            <field name="user_id"/>
+                        </group>
+                        <group>
+                            <field name="file" filename="file_name"/>
+                            <field name="file_name" invisible="1"/>
+                            <field name="transaction_type" widget="many2many_tags"/>
+                        </group>
+                    </group>
+                    <div class="text-center">
+                        <button name="generate_data_file" type="object" string="Generate Data" class="oe_highlight"/>
+                    </div>
+                    <field name="impx_account_import_ids" nolabel="1" widget="one2many"
+                        context="{'tree_view_ref':'impx_account_move_import.impx_account_import_tree_view',
+                                   'form_view_ref':'impx_account_move_import.impx_account_import_form_view'}"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="impx_import_action" model="ir.actions.act_window">
+        <field name="name">Impx Import</field>
+        <field name="res_model">impx.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Import new Data
+            </p>
+        </field>
+    </record>
+
+    <record id="impx_import_detail_action" model="ir.actions.act_window">
+        <field name="name">Impx Import Detail</field>
+        <field name="res_model">impx.account.import</field>
+        <field name="view_mode">tree,form</field>
+        <field name="search_view_id" ref="impx_account_import_search_view"/>
+        <field name="context">{'search_default_group_transaction_type': 1}</field>
+    </record>
+
+    <menuitem id="impx_import_action_menu" name="Import Data"
+              parent="account.menu_finance_configuration" sequence="100"/>
+
+    <menuitem id="impx_import_accounting_action_menu" name="Import Data Accounting" action="impx_import_action"
+              parent="impx_import_action_menu" sequence="10"/>
+
+    <menuitem id="impx_import_accounting_detail_action_menu" name="Import Data Accounting Detail" action="impx_import_detail_action"
+              parent="impx_import_action_menu" sequence="20"/>
+</odoo>

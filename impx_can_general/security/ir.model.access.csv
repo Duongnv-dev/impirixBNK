@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_cannabis_license_group_user_all,cannabis_license_group_user_all,model_cannabis_license,,1,0,0,0
+access_cannabis_license_group_system,cannabis_license_group_system,model_cannabis_license,base.group_system,1,1,1,1
+access_res_strains,res.strains,model_res_strains,,1,0,0,0
+access_res_brands,res.brands,model_res_brands,,1,0,0,0
+access_package_tags_all,package_tags_all,model_package_tags,stock.group_stock_manager,1,1,1,1
+access_package_tags_all,package_tags_all,model_package_tags,,1,0,0,0
+access_synchronize_error_log_all,synchronize_error_log_all,model_synchronize_error_log,,1,0,0,0
+access_synchronize_error_log_group_system,synchronize_error_log_group_system,model_synchronize_error_log,base.group_system,1,1,1,0

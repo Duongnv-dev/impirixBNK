@@ -1,0 +1,56 @@
+<odoo>
+    <record id="xpath_order_form_view" model="ir.ui.view">
+        <field name="name">xpath_order_form_view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="LeafLink Information">
+                    <header>
+                        <field name="ll_status" widget="statusbar"/>
+                    </header>
+                    <group>
+                        <field name="external_id"/>
+                        <field name="ll_number"/>
+                        <field name="ll_create_date"/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="xpath_order_tree_view" model="ir.ui.view">
+        <field name="name">xpath_order_tree_view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="external_id"/>
+                <field name="analytic_account_id"/>
+                <field name="ll_create_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="xpath_view_quotation_tree_with_onboarding" model="ir.ui.view">
+        <field name="name">xpath_view_quotation_tree_with_onboarding</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_quotation_tree_with_onboarding"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <field name="external_id"/>
+                <field name="analytic_account_id"/>
+                <field name="ll_create_date"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="filter_ll_create_date_favorite" model="ir.filters">
+        <field name="name">Creation date on LeafLink</field>
+        <field name="model_id">sale.order</field>
+        <field name="domain">[('ll_create_date', '!=', False)]</field>
+        <field name="user_id" eval="False"/>
+        <field name="context">{}</field>
+    </record>
+
+</odoo>

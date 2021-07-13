@@ -1,0 +1,34 @@
+<odoo>
+    <record id="notify_batch_update_leaf_link_email_template" model="mail.template">
+            <field name="name">Leaf Link Updates Notify</field>
+            <field name="model_id" ref="impx_leaflink_lite.model_batch_update_leaf_link"/>
+            <field name="email_from"></field>
+            <field name="partner_to"></field>
+            <field name="email_cc"></field>
+            <field name="subject">${object.name or 'n/a' }</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear,
+                        <br /><br /><br />
+                        % if object.batch_url:
+                            ${object.log}
+                            <br /><br />
+                            Please click on
+                                <a href="${object.batch_url}"><span style="color: #3399FF !important">View Detail</span></a>
+                            to see details.
+                        % endif
+                        % if not object.batch_url:
+                            ${object.log}
+                            <br /><br />
+                            Please log into the system to view details
+                        % endif
+                        <br /><br /><br />
+                        Thanks and Regards<br/>
+                    </p>
+                </div>
+            </field>
+            <field name="user_signature" eval="False"/>
+            <field name="auto_delete" eval="False"/>
+        </record>
+</odoo>

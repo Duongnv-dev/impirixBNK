@@ -1,0 +1,11 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_office_settings,access.office.settings,model_office_settings,base.group_user,1,1,1,1
+access_office_usersettings,access.office.usersettings,model_office_usersettings,base.group_user,1,1,1,1
+access_office_sync,access.office.sync,model_office_sync,base.group_user,1,1,1,0
+access_export_history,access.export.history,model_export_history,base.group_user,1,1,1,1
+access_sync_history,access.sync.history,model_sync_history,base.group_user,1,1,1,1
+access_office365_mail,access_office365_mail,model_office365_mail,,1,0,0,0
+access_office365_mail,access_office365_mail,model_office365_mail,base.group_user,1,1,1,0
+access_office365_mail_address,access_office365_mail_address,model_office365_mail_address,,1,1,1,0
+access_calendar_sync_all,access_calendar_sync_all,model_calendar_sync,,1,0,0,0
+access_calendar_sync_group_user,access_calendar_sync_group_user,model_calendar_sync,base.group_user,1,1,1,0

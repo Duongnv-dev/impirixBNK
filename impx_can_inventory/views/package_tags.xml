@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="impx_can_view_package_tags_form" model="ir.ui.view">
+        <field name="name">Impx can view package tags form</field>
+        <field name="model">package.tags</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <form delete="false">
+                <header>
+
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="label"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="metrc_id"/>
+                            <field name="license_id"/>
+                        </group>
+                        <group>
+                            <field name="note"/>
+                            <field name="used"/>
+                            <field name="active" invisible="1"/>
+                        </group>
+                    </group>
+
+                    <notebook>
+                        <page string="Metrc synch">
+                            <group>
+                                <group>
+                                    <field name="metrc_sync_state"/>
+                                </group>
+                            </group>
+
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="impx_can_view_package_tags_tree" model="ir.ui.view">
+        <field name="name">Impx can view package tags tree</field>
+        <field name="model">package.tags</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <tree delete="false">
+                <field name="label"/>
+                <field name="metrc_id"/>
+                <field name="license_id"/>
+                <field name="used"/>
+                <field name="note"/>
+                <field name="metrc_sync_state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="impx_can_view_package_tags_search" model="ir.ui.view">
+        <field name="name">Impx can view package tags search</field>
+        <field name="model">package.tags</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <search>
+                <field name="label"/>
+                <field name="metrc_id"/>
+                <field name="license_id"/>
+                <field name="note"/>
+
+                <group>
+                    <filter name="used_true" string="Used" domain="[('used', '=', True)]"/>
+                    <filter name="used_false" string="Available" domain="[('used', '=', False)]"/>
+
+                    <filter name="active_true" string="Active" domain="[('active', '=', True)]"/>
+                    <filter name="active_false" string="De-Active" domain="[('active', '=', False)]"/>
+                </group>
+
+                <group>
+                    <filter name="metrc_sync_state_group_by"
+                            string="Sync state" context="{'group_by': 'metrc_sync_state'}"/>
+                    <filter name="license_id_group_by"
+                            string="License" context="{'group_by': 'license_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="impx_can_package_tags_action" model="ir.actions.act_window">
+        <field name="name">Metrc Tags</field>
+        <field name="res_model">package.tags</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_impx_can_package_tags_action" action="impx_can_package_tags_action"
+              parent="stock.menu_stock_inventory_control" sequence="120"/>
+</odoo>

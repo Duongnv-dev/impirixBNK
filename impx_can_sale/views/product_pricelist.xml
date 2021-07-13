@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="impx_can_product_pricelist_item_form_view" model="ir.ui.view">
+        <field name="name">product.pricelist.item.form</field>
+        <field name="model">product.pricelist.item</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="product.product_pricelist_item_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='pricelist_rule_computation']" position="before">
+                <group>
+                    <field name="customer_ids" widget="many2many_tags" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options="{&quot;always_reload&quot;: True}"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

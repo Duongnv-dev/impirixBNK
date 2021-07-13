@@ -1,0 +1,29 @@
+<odoo>
+    <record id="ir_cron_leaf_link_cron_job" model="ir.cron">
+        <field name="name">LeafLink Cron Job</field>
+        <field name="model_id" ref="impx_leaflink_lite.model_batch_update_leaf_link"/>
+        <field name="state">code</field>
+        <field name="code">model.leaf_link_cron()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+        <field name="nextcall"
+               eval="(DateTime.now().replace(hour=0, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+
+    <record id="ir_cron_sync_orders_to_odoo" model="ir.cron">
+        <field name="name">Sync orders from LeafLink to odoo</field>
+        <field name="model_id" ref="impx_leaflink_lite.model_sale_order"/>
+        <field name="state">code</field>
+        <field name="code">model.sync_orders_to_odoo()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">24</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+        <field name="nextcall"
+               eval="(DateTime.now().replace(hour=0, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+</odoo>

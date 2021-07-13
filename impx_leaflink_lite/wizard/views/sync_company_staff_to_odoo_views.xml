@@ -1,0 +1,33 @@
+<odoo>
+    <record id="sync_company_staff_ll_view_form" model="ir.ui.view">
+        <field name="name">sync_company_staff_ll_view_form</field>
+        <field name="model">sync.company.staff</field>
+        <field name="arch" type="xml">
+            <form string="Sync Company Staff from LeafLink to Odoo">
+                <footer>
+                    <button string="Sync" type="object" name="sync_company_staff_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_company_staff_ll" model="ir.actions.act_window">
+        <field name="name">Sync Company Staff from LeafLink to Odoo</field>
+        <field name="res_model">sync.company.staff</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_company_staff_ll_view_form"/>
+    </record>
+
+    <menuitem id="leaf_link_menu_config"
+              name="LeafLink"
+              parent="contacts.res_partner_menu_config"
+              sequence="100"/>
+
+    <menuitem id="menu_sync_company_staff_to_odoo"
+              name="Sync Company Staff to odoo"
+              parent="impx_leaflink_lite.leaf_link_menu_config"
+              action="impx_leaflink_lite.action_sync_company_staff_ll"
+              sequence="0"/>
+</odoo>

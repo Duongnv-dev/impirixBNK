@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_production_lot_form_impx_inherit" model="ir.ui.view">
+        <field name="name">stock.production.lot.form.impx.inherit</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="impx_can_inventory.view_production_lot_form_inherit"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <field name="company_id" position="after">
+                <field name="mrp_order_id"/>
+                <field name="mrp_order_date"/>
+                <field name="production_batch_id"/>
+            </field>
+        </field>
+    </record>
+
+    <menuitem id="mrp.menu_mrp_traceability"
+          name="Lots/Package tags number"
+          parent="mrp.menu_mrp_bom"
+          action="stock.action_production_lot_form"
+          groups="stock.group_production_lot"
+          sequence="15"/>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="synchronize_error_log_form_view" model="ir.ui.view">
+        <field name="name">synchronize.error.log.form.view</field>
+        <field name="model">synchronize.error.log</field>
+        <field name="arch" type="xml">
+            <form create="true" delete="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sync_system"/>
+                            <field name="sync_function"/>
+                            <field name="type"/>
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                        </group>
+                        <group>
+                            <field name="error"/>
+                            <field name="status_code"/>
+                            <field name="response"/>
+                            <field name="note"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="synchronize_error_log_tree_view" model="ir.ui.view">
+        <field name="name">synchronize.error.log.tree.view</field>
+        <field name="model">synchronize.error.log</field>
+        <field name="arch" type="xml">
+            <tree create="true" delete="false">
+                <field name="name"/>
+                <field name="sync_system"/>
+                <field name="sync_function"/>
+                <field name="type"/>
+                <field name="status_code"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="synchronize_error_log_action" model="ir.actions.act_window">
+        <field name="name">Synchronize error log</field>
+        <field name="res_model">synchronize.error.log</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_synchronize_error_log_action"
+              parent="base.menu_users"
+              action="synchronize_error_log_action" sequence="120"/>
+</odoo>

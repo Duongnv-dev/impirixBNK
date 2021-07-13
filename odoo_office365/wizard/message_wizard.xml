@@ -1,0 +1,28 @@
+<odoo>
+    <data>
+        <record id="custom_message_wizard_form" model="ir.ui.view">
+            <field name="name">message.wizard</field>
+            <field name="model">message.wizard</field>
+            <field name="arch" type="xml" >
+                <form string="Message">
+                    <group class="oe_title">
+                        <field name="text"/>
+                    </group>
+                    <footer>
+
+                        <button string="Ok" class="oe_highlight" special="cancel" style="width:10%"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="custom_message_wizard" model="ir.actions.act_window">
+            <field name="name">Lost Reason</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">message.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="custom_message_wizard_form"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

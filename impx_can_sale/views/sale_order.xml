@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="impx_can_view_order_form" model="ir.ui.view">
+        <field name="name">Impx can view order form</field>
+        <field name="model">sale.order</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <field name="analytic_account_id" position="replace"/>
+            <field name="partner_shipping_id" position="after">
+                <field name="analytic_account_id" string="License Number" required="1"
+                       context="{'default_partner_id':partner_invoice_id, 'default_name':name}"
+                       attrs="{'readonly': [('invoice_count','!=',0),('state','=','sale')]}" groups="analytic.group_analytic_accounting" force_save="1"/>
+                <field name="cannabis_license_id" invisible="1"/>
+            </field>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[('cannabis_license_id', '=', parent.cannabis_license_id)]</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

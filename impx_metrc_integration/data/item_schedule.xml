@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="create_update_category_from_metrc" forcecreate="True" model="ir.cron">
+        <field name="name">Metrc: Create Category From Metrc</field>
+        <field name="model_id" ref="model_product_category"/>
+        <field name="state">code</field>
+        <field name="code">model.get_metrc_category()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">7</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+
+    <record id="create_update_item_from_metrc" forcecreate="True" model="ir.cron">
+        <field name="name">Metrc: Create/Update Item From Metrc</field>
+        <field name="model_id" ref="model_product_product"/>
+        <field name="state">code</field>
+        <field name="code">model.get_metrc_item()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <record id="ir_cron_mapped_po_incoming_transfer_job" model="ir.cron">
+        <field name="name">Mapping incoming with PO</field>
+        <field name="model_id" ref="stock.model_stock_picking"/>
+        <field name="state">code</field>
+        <field name="code">model.find_and_mapping_incoming_transfers_with_po()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">hours</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="True"/>
+        <field name="nextcall"
+               eval="(DateTime.now().replace(hour=0, minute=0) + timedelta(days=1)).strftime('%Y-%m-%d %H:%M:%S')"/>
+    </record>
+
+    <record id="create_test_sample_metrc" forcecreate="True" model="ir.cron">
+        <field name="name">Metrc: Create test sample to Metrc</field>
+        <field name="model_id" ref="model_stock_production_lot"/>
+        <field name="state">code</field>
+        <field name="code">model.sync_multi_new_test_sample_to_metrc()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+
+    <record id="update_state_test_sample_from_metrc" forcecreate="True" model="ir.cron">
+        <field name="name">Metrc: Update state test sample From Metrc</field>
+        <field name="model_id" ref="model_stock_production_lot"/>
+        <field name="state">code</field>
+        <field name="code">model.sync_multi_state_sample_to_metrc()</field>
+        <field name="user_id" ref="base.user_root"/>
+        <field name="interval_number">1</field>
+        <field name="interval_type">days</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

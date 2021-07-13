@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <data>
+         <record model="ir.ui.view" id="office365_sync_form_view">
+            <field name="name">office365.form</field>
+            <field name="model">office.sync</field>
+            <field name="arch" type="xml">
+                <form string="Office365 Settings" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <h1>ODOO Office365 Connector</h1>
+                            </group>
+                            <group>
+                                <group>
+
+                                </group>
+
+                            </group>
+                        </group>
+                        <group>
+
+                            <group>
+
+
+                            </group>
+                        </group>
+                        <div>
+                            <group groups="sales_team.group_sale_manager">
+                                <div class="content-group">
+                                    <group col="4">
+
+                                        <group>
+                                            <h2>Object</h2>
+                                        </group>
+                                        <group>
+                                            <span>
+                                                <h2>Import</h2>
+                                                Import from Office365 to ODOO.
+                                            </span>
+                                        </group>
+                                    </group>
+                                    <group col="4">
+                                        <group>
+                                            <strong>Email</strong>
+                                        </group>
+                                        <group>
+                                            <field name="is_import_email" nolabel="1"/>
+                                        </group>
+                                        <group></group>
+                                    </group>
+                                    <group col="3">
+                                        <group>
+                                            <field name="is_manual_sync"/>
+                                        </group>
+                                        <group>
+                                            <field name="from_date"
+                                                   attrs="{'invisible':[('is_manual_sync','=',False)]}"/>
+                                        </group>
+                                        <group>
+                                            <field name="to_date" attrs="{'invisible':[('is_manual_sync','=',False)]}"/>
+                                        </group>
+                                    </group>
+                                    <group col="3">
+                                        <group></group>
+                                        <group colspan="2">
+                                            <field name="user_manual_sync_ids" string='Users need to sync manually'
+                                                   widget="many2many_tags"
+                                                   domain="[('allow_connect_365', '=', True)]"
+                                                   attrs="{'invisible': [('is_manual_sync', '!=', True)]}"/>
+                                        </group>
+
+                                    </group>
+
+                                    <button name="sync_data"
+                                            type="object" string="Manual synchronization" class="oe_highlight" icon="fa-refresh fa-2x"/>
+                                </div>
+
+
+                            </group>
+
+                        </div>
+                        <notebook colspan="3">
+                            <page string="Sync Emails History" autofocus="autofocus">
+                                <group>
+                                    <field name="history_line" mode="tree,kanban" nolabel="1" string="History details">
+                                        <form string="History details">
+                                            <group>
+                                                <field name="last_sync" readonly="1"/>
+                                                <field name="user_id" width="20%" readonly="1"/>
+                                                <field name="sync_type" width="10%" type="char" readonly="1"/>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="from_date" attrs="{'invisible': [('sync_type', '!=', 'manual')]}" readonly="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="to_date" attrs="{'invisible': [('sync_type', '!=', 'manual')]}" readonly="1"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <group>
+                                                    <field name="no_im_email" width="10%" type="char" readonly="1"/>
+                                                </group>
+                                                <group>
+                                                    <field name="no_sent_email" width="10%" type="char" readonly="1"/>
+                                                </group>
+                                            </group>
+                                            <group>
+                                                <field name="message_log" width="10%" type="char" readonly="1"/>
+                                            </group>
+                                        </form>
+                                        <tree create="false" delete="true" limit="15">
+                                            <field name="last_sync" width="20%"/>
+                                            <field name="user_id" width="20%"/>
+                                            <field name="sync_type" width="10%" type="char"/>
+                                            <field name="no_im_email" width="10%" type="char"/>
+                                            <field name="no_sent_email" width="10%" type="char"/>
+                                            <field name="status" width="10%"/>
+                                        </tree>
+
+                                    </field>
+
+                                </group>
+                            </page>
+                            <page string="Hidden email addresses" groups="base.group_user">
+                                <field name="special_email_ids" widget="many2many_tags" readonly="1"/>
+                                <div>
+                                    <button name="add_special_email"
+                                            type="object" string="Change" class="oe_highlight"/>
+                                </div>
+                            </page>
+
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+            </field>
+
+        </record>
+    </data>
+</odoo>
+
+

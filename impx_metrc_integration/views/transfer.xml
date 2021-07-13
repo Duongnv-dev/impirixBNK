@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="metrc_transfer_type_tree_view" model="ir.ui.view">
+        <field name="name">metrc.transfer.type.tree.view</field>
+        <field name="model">metrc.transfer.type</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="metrc_transfer_type_form_view" model="ir.ui.view">
+        <field name="name">metrc.transfer.type.form.view</field>
+        <field name="model">metrc.transfer.type</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="for_licensed_shipments"/>
+                            <field name="requires_destination_gross_weight"/>
+                            <field name="requires_packages_gross_weight"/>
+                        </group>
+                        <group>
+                            <field name="for_external_incoming_shipments"/>
+                            <field name="for_external_outgoing_shipments"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="metrc_transfer_type_action" model="ir.actions.act_window">
+        <field name="name">Metrc transfer type</field>
+        <field name="res_model">metrc.transfer.type</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

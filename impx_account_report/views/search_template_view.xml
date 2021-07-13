@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="search_template_analytic_and_partner">
+        <a t-if="options.get('analytic_and_partner')" type="button" class="dropdown-toggle account_partner_filter" data-toggle="dropdown">
+            <span class="fa fa-folder-open"/> Analytic and Partners
+        </a>
+        <ul class="dropdown-menu o_filters_menu" role="menu">
+            <li class="o_account_report_search js_account_analytic_partner_m2m"/>
+        </ul>
+    </template>
+
+    <template id="search_template" inherit_id="account_reports.search_template">
+        <xpath expr="//div[hasclass('o_account_reports_filter_partner')]" position="after">
+            <div class="btn-group o_dropdown o_account_reports_filter_partner" t-if="options.get('analytic_and_partner')">
+                <t t-call="impx_account_report.search_template_analytic_and_partner"/>
+            </div>
+        </xpath>
+
+    </template>
+
+</odoo>

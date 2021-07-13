@@ -1,0 +1,22 @@
+<odoo>
+    <record id="sync_contacts_ll_view_form" model="ir.ui.view">
+        <field name="name">sync_contacts_ll_view_form</field>
+        <field name="model">sync.contacts</field>
+        <field name="arch" type="xml">
+            <form string="Sync Contacts from LeafLink to Odoo">
+                <footer>
+                    <button string="Sync" type="object" name="sync_contacts_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_contacts_ll" model="ir.actions.act_window">
+        <field name="name">Sync Contacts from LeafLink to Odoo</field>
+        <field name="res_model">sync.contacts</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_contacts_ll_view_form"/>
+    </record>
+</odoo>

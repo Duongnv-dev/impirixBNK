@@ -1,0 +1,77 @@
+<odoo>
+    <data>
+        <record id="office365_cron_create_queue_sync_mail" model="ir.cron">
+            <field name="name">365 Email: Create Queue job sync mail 365</field>
+            <field name="model_id" ref="model_office_sync"/>
+            <field name="state">code</field>
+            <field name="active">1</field>
+            <field name="code">model.create_queue_sync_mail_scheduler()</field>
+            <field name='interval_number'>1</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_type'>minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="office365_cron_delete_sync_history" model="ir.cron">
+            <field name="name">365 Email: Auto delete sync mail 365 history</field>
+            <field name="model_id" ref="model_sync_history"/>
+            <field name="state">code</field>
+            <field name="active">1</field>
+            <field name="code">model.auto_unlink_sync_history()</field>
+            <field name='interval_number'>30</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        #calendar
+        <record id="cron_job_delete_and_update_repeat_events" model="ir.cron">
+            <field name="name">365 Calendar: Push delete and update repeat events to queue</field>
+            <field name="model_id" ref="model_calendar_event"/>
+            <field name="state">code</field>
+            <field name="active">1</field>
+            <field name="code">model.cron_job_delete_and_update_repeat_events()</field>
+            <field name='interval_number'>10</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_type'>minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="office365_cron_create_calendar_value" model="ir.cron">
+            <field name="name">365 Calendar: Create calendar value from office 365</field>
+            <field name="model_id" ref="model_office_calendar_value"/>
+            <field name="state">code</field>
+            <field name="active">1</field>
+            <field name="code">model.create_calendar_value_scheduler()</field>
+            <field name='interval_number'>1</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_type'>minutes</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="office365_cron_delete_calendar_value" model="ir.cron">
+            <field name="name">365 Calendar: Auto delete calendar value from office 365 </field>
+            <field name="model_id" ref="model_office_calendar_value"/>
+            <field name="state">code</field>
+            <field name="active">1</field>
+            <field name="code">model.auto_unlink_office_calendar_value()</field>
+            <field name='interval_number'>30</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+        <record id="office365_cron_delete_calendar_sync" model="ir.cron">
+            <field name="name">365 Calendar: Auto delete calendar sync from office 365 </field>
+            <field name="model_id" ref="model_calendar_sync"/>
+            <field name="state">code</field>
+            <field name="active">1</field>
+            <field name="code">model.auto_unlink_calendar_sync()</field>
+            <field name='interval_number'>30</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name='interval_type'>days</field>
+            <field name="numbercall">-1</field>
+        </record>
+
+    </data>
+</odoo>

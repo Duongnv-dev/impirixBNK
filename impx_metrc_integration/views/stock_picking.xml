@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="impx_can_view_picking_form" model="ir.ui.view">
+        <field name="name">Impx can view picking form</field>
+        <field name="model">stock.picking</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="before">
+                <group>
+                    <group>
+                        <button name="create_metrc_transfer_template" type="object" string="Create Metrc Template" class="btn-primary"/>
+                    </group>
+                    <group>
+                        <field name="metrc_template_state"
+                               string="Metrc Template State"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='note']" position="before">
+                <page string="Metrc" name="metrc">
+                    <group>
+                        <group>
+                            <field name="metrc_transfer_id"/>
+                            <field name="metrc_manifest_number"/>
+                            <field name="metrc_delivery_id"/>
+                            <field name="metrc_last_modified"/>
+                            <field name="metrc_estimated_departure_datetime"/>
+                            <field name="metrc_estimated_arrival_datetime"/>
+                            <field name="metrc_received_datetime"/>
+                        </group>
+
+                        <group>
+                            <field name="metrc_shipper_facility_license_number"/>
+                            <field name="metrc_shipper_facility_name"/>
+                            <field name="metrc_created_datetime"/>
+                            <field name="metrc_created_by_username"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+
+            <xpath expr="//field[@name='move_ids_without_package']//field[@name='description_picking']" position="after">
+                <field name="package_label"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_picking_internal_search_inherit" model="ir.ui.view">
+        <field name="name">Impx can view picking form inherit</field>
+        <field name="model">stock.picking</field>
+        <field name="priority" eval="10000"/>
+        <field name="inherit_id" ref="stock.view_picking_internal_search"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+                <filter string="Need mapping PO" name="need_mapping_po" domain="[('from_metrc_incoming_transfer', '=', True),('mapped_po', '=', False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

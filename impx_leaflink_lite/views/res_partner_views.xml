@@ -1,0 +1,41 @@
+<odoo>
+
+
+    <record id="xpath_res_partner_form_view" model="ir.ui.view">
+        <field name="name">xpath_res_partner_form_view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='regulatory_license_type']" position="after">
+                <field name="leaf_link_customer_id" attrs="{'invisible': [('is_company', '=', False)]}"/>
+                <field name="edit_leaflink_id" invisible="1"/>
+                <field name="show_url_button" invisible="1"/>
+                <label for="leaf_link_customer_url" string=""/>
+                <button type="object" string="Open LeafLink" name="get_leaflink_custom_url" class="oe_link" attrs="{'invisible': [('show_url_button', '=', False)]}"/><br/>
+                <button type="object" string="Create Order" name="get_leaflink_order_url" class="oe_link" attrs="{'invisible': [('show_url_button', '=', False)]}" />
+                <field name="leaf_link_customer_url" widget="url" invisible="1"/>
+                <field name="leaf_link_order_url" widget="url" invisible="1"/>
+            </xpath>
+            <xpath expr="//header" position="inside">
+                <button name="sync_to_leaflink"
+                        type="object"
+                        string="Sync to LeafLink"
+                        class="oe_highlight"
+                        groups="base.group_system"
+                        attrs="{'invisible': [('is_company', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+    <record id="xpath_base_view_res_partner_filter_inherit" model="ir.ui.view">
+        <field name="name">xpath_base_view_res_partner_filter_inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='inactive']" position="after">
+                <filter name="leaflink_external_id_is_set" string="LeafLink External ID" domain="[('leaf_link_customer_id','!=',False)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

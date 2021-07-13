@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.metrc</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='integration']" position="inside">
+                <div class="col-12 col-lg-6 o_setting_box">
+                    <div class="o_setting_right_pane">
+                        <div class="text-muted">
+                            Api Metrc connection info
+                        </div>
+                        <div class="content-group">
+                            <div class="row mt16">
+                                <label for="metrc_url" class="col-lg-4 o_light_label"/>
+                                <field name="metrc_url" class="col-lg-8 oe_inline"/>
+                            </div>
+                            <div class="row mt16">
+                                <label for="metrc_software_api_key" class="col-lg-4 o_light_label"/>
+                                <field name="metrc_software_api_key" class="col-lg-8 oe_inline"/>
+                            </div>
+                            <div class="row">
+                                <label for="metrc_user_api_key" class="col-lg-4 o_light_label"/>
+                                <field name="metrc_user_api_key" class="col-lg-8 oe_inline"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </xpath>
+        </field>
+    </record>
+
+    <record id="cannabis_license_form_view_inherit" model="ir.ui.view">
+        <field name="name">cannabis_license_form_view_inherit</field>
+        <field name="model">cannabis.license</field>
+        <field name="inherit_id" ref="impx_can_general.cannabis_license_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Metrc connect setting">
+                    <group>
+                        <group>
+                            <field name="incoming_transfer_last_sync"/>
+                            <button name="sync_incoming_transfer_for_a_license" type="object"
+                                    string="Manual sync incoming transfer"/>
+
+                            <button name="sync_active_package_for_a_license" type="object"
+                                    string="Manual sync active package"/>
+
+                            <button name="sync_metrc_adjust_package_reason" type="object"
+                                    string="Manual sync adjust package reason"/>
+
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="purchase_order_form_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.form.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="priority" eval="1000"/>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='currency_id']" position="after">
+               <field name="purchase_type" attrs="{'readonly':[('state', '!=', 'draft')]}"/>
+            </xpath>
+
+            <xpath expr="//field[@name='account_analytic_id']" position="attributes">
+                <attribute name="optional"></attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="purchase_order_tree_inherit" model="ir.ui.view">
+        <field name="name">purchase.order.tree.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="priority" eval="1000"/>
+        <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='company_id']" position="after">
+               <field name="purchase_type"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_purchase_order_filter_inherit" model="ir.ui.view">
+        <field name="name">purchase.view.purchase.order.filter.inherit</field>
+        <field name="model">purchase.order</field>
+        <field name="priority" eval="1000"/>
+        <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//filter[@name='activities_upcoming_all']" position="after">
+               <filter name="purchase_type_normal" string="Normal purchase" domain="[('purchase_type', '=', 'normal')]"/>
+               <filter name="purchase_type_metrc" string="Metrc purchase" domain="[('purchase_type', '=', 'metrc')]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

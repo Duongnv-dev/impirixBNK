@@ -1,0 +1,43 @@
+<odoo>
+    <template id="token_redirect_success_page" name="Authentication Success Token Page">
+        <div class="code success"
+             style="font-size:3em; text-align:center; background:#48bb3e; width: 300px; height: 300px; display: flex;
+                    align-items: center; justify-content: center; border-radius: 50%; flex-direction: column;
+                    color: white; margin: auto; margin-top: calc(50vh - 150px);">
+              <span class="tick" style="font-size: 90px;
+                            line-height: 1;
+                            margin-bottom: -30px;" >
+                  &#10004;
+              </span>
+              <span>Successfully generated token!</span>
+
+        </div>
+        <script>
+            setTimeout(function(){
+                window.location.href = '/';
+            }, 1100)
+        </script>
+    </template>
+
+    <template id="token_redirect_fail_page" name="Authentication Failure Token Page">
+         <div class="code success"
+             style="font-size:3em; text-align:center; background:#FF4645; width: 300px; height: 300px; display: flex;
+                    align-items: center; justify-content: center; border-radius: 50%; flex-direction: column;
+                    color: white; margin: auto; margin-top: calc(50vh - 150px);">
+              <span class="tick" style="font-size: 90px;
+                            line-height: 1;
+                            margin-bottom: -11px" >
+                  &#10005;
+              </span>
+              <span>Failed! please see the details in logs</span>
+        </div>
+        <script>
+            setTimeout(function(){
+                window.location.href = '/';
+            }, 1100)
+        </script>
+    </template>
+
+</odoo>
+
+

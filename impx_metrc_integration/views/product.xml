@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="product_category_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.category.form.view.inherit</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='parent_id']" position="after">
+                <field name="category_type" class="oe_inline"/>
+                <field name="qty_type_id" class="oe_inline"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_normal_form_view_add_metrc_infor" model="ir.ui.view">
+        <field name="name">product.normal.form.view.add.metrc.infor</field>
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page[last()]" position="after">
+                <page name="metrc_infor" string="Metrc Information">
+                    <group>
+                        <field name="metrc_connect" invisible="1"/>
+                        <!--<button name="manual_create_item_metrct" type="object" string="Manual synchronization"-->
+                                <!--class="oe_link" icon="fa-refresh fa-2x" attrs="{'invisible': ['|', ('metrc_connect', '!=', True), ('metrc_id', '!=', False)]}"/>-->
+                    </group>
+                    <group>
+                        <group>
+                            <field name="metrc_id"/>
+                            <field name="metrc_default_lab_testing_state"/>
+                            <field name="metrc_approval_status"/>
+                            <field name="metrc_approval_status_datetime"/>
+                            <field name="strain_id"/>
+                            <field name="metrc_unit_thc_percent"/>
+                            <field name="metrc_unit_thc_content"/>
+                            <field name="metrc_unit_thc_content_name"/>
+                        </group>
+                        <group>
+                            <field name="metrc_unit_thc_content_dose"/>
+                            <field name="metrc_unit_thc_content_dose_name"/>
+                            <field name="metrc_serving_size"/>
+                            <field name="metrc_supply_duration_days"/>
+                            <field name="metrc_number_of_doses"/>
+                            <field name="metrc_ingredients"/>
+                            <field name="metrc_is_used"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

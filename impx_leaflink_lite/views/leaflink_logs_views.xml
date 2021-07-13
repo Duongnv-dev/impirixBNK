@@ -1,0 +1,129 @@
+<odoo>
+    <record id="leaflink_logs_view_form" model="ir.ui.view">
+        <field name="name">leaflink_logs_view_form</field>
+        <field name="model">leaflink.logs</field>
+        <field name="arch" type="xml">
+            <form string="Sync Orders">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h3>
+                            <field name="name"/>
+                            <field name="write_date"/>
+                        </h3>
+                    </div>
+
+                    <div>
+                        <label for="note"/>
+                        <field name="note"/>
+                    </div>
+                    <div>
+                        <label for="type"/>
+                        <field name="type"/>
+                    </div>
+                    <div>
+                        <label for="duration"/>
+                        <field name="duration"/>
+                    </div>
+                    <div>
+                        <label for="status"/>
+                        <field name="status"/>
+                    </div>
+
+                    <notebook>
+                        <page string="Orders Created" attrs="{'invisible': [('type', '!=', 'orders')]}">
+                            <field name="order_ids_created">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="analytic_account_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total"/>
+                                    <field name="state"/>
+                                    <field name="ll_create_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Orders Updated" attrs="{'invisible': [('type', '!=', 'orders')]}">
+                            <field name="order_ids_updated">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="analytic_account_id"/>
+                                    <field name="partner_id"/>
+                                    <field name="amount_total"/>
+                                    <field name="state"/>
+                                    <field name="ll_create_date"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Product Created" attrs="{'invisible': [('type', '!=', 'products')]}">
+                            <field name="product_ids_created">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cannabis_license_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Product Updated" attrs="{'invisible': [('type', '!=', 'products')]}">
+                            <field name="product_ids_updated">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cannabis_license_id"/>
+                                </tree>
+                            </field>
+                        </page>
+
+                        <page string="Child Product Created" attrs="{'invisible': [('type', '!=', 'products')]}">
+                            <field name="child_prods_ids_created">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cannabis_license_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Child Product Updated" attrs="{'invisible': [('type', '!=', 'products')]}">
+                            <field name="child_prods_ids_updated">
+                                <tree>
+                                    <field name="name"/>
+                                    <field name="cannabis_license_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="leaflink_logs_view_tree" model="ir.ui.view">
+        <field name="name">leaflink_logs_view_tree</field>
+        <field name="model">leaflink.logs</field>
+        <field name="arch" type="xml">
+            <tree string="Sync Orders">
+                <field name="name"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_leaflink_logs" model="ir.actions.act_window">
+        <field name="name">LeafLink Logs</field>
+        <field name="res_model">leaflink.logs</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="impx_leaflink_lite.leaflink_logs_view_tree"/>
+    </record>
+
+    <menuitem id="menu_leaflink_logs"
+              name="Leaflink Logs"
+              parent="sale.menu_sale_config"
+              sequence="100"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_leaflink_logs"
+            name="Logs"
+            parent="impx_leaflink_lite.menu_leaflink_logs"
+            id="leaflink_logs_in_config_sale"
+            sequence="5"/>
+</odoo>

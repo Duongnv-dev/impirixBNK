@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_partner_form_inherit" model="ir.ui.view">
+        <field name="name">view.partner.form.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//widget[@name='web_ribbon']" position="after">
+                <widget name="web_ribbon" title="License Expired" bg_color="bg-danger" attrs="{'invisible': ['|', ('license_expired', '!=', True), ('active','=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="after">
+                <field name="regulatory_license" string="Regulatory License" placeholder="ABC123"/>
+                <field name="regulatory_license_type" string="Regulatory License Type"/>
+                <field name="doing_business_as" string="Doing Business As" placeholder="DBA" attrs="{'invisible': [('is_company' ,'=', False)]}"/>
+                <field name="licensee_name" string="Licensee Name" placeholder="Licensee Name" attrs="{'invisible': [('is_company' ,'=', False)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='website']" position="after">
+                <field name="sales_territory" placeholder="Sales Territory"/>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="after">
+                <field name="show_all_activities" invisible="1"/>
+                <field name="is_transporter" string="Transporter" attrs="{'invisible': [('is_company' ,'=', False)]}"/>
+                <field name="transporter_type" string="Transporter Type" attrs="{'invisible': ['|', ('is_company' ,'=', False), ('is_transporter' ,'=', False)]}"/>
+                <field name="is_testing_facility" string="Testing Facility" attrs="{'invisible': [('is_company' ,'=', False)]}"/>
+                <field name="license_expired" invisible="1"/>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="update_sale_person" type="object" string="Update Sale Person" class="oe_highlight" invisible="1" groups="base.group_system"/>
+                    <button name="show_all_activity" type="object" string="All activities" class="oe_highlight" attrs="{'invisible': [('show_all_activities' ,'=', True)]}"/>
+                    <button name="not_show_all_activity" type="object" string="Not all activities" class="oe_highlight" attrs="{'invisible': [('show_all_activities' ,'=', False)]}"/>
+                </header>
+            </xpath>
+            <xpath expr="//page[@name='internal_notes']" position="after">
+                <page name="social_media" string="Social Media">
+                    <group>
+                        <field name="social_facebook_link" string="Facebook Link" placeholder="Facebook Link URL"/>
+                        <field name="social_twitter_link" string="Twitter Link" placeholder="Twitter Link URL"/>
+                        <field name="social_linkedin_link" string="LinkedIn Link" placeholder="LinkedIn Link URL"/>
+                    </group>
+                </page>
+            </xpath>
+
+            <!--WO04-->
+            <xpath expr="//field[@name='parent_id']" position="attributes">
+                <attribute name="domain">[('is_company', '=', True),('parent_id', '=', False)]</attribute>
+                <attribute name="attrs">{'invisible': [('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='street']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='street2']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='city']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='state_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='zip']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='country_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('type', '=', 'contact'),('parent_id', '!=', False)]}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('parent_id','!=',False)]}</attribute>
+            </xpath>
+            <xpath expr="//page/group/group/field[@name='user_id']" position="attributes">
+                <attribute name="attrs">{'readonly': [('is_company', '!=', True),('parent_id','!=',False)]}</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <record id="res_partner_view_form_inherit_mail_inherit" model="ir.ui.view">
+        <field name="name">res.partner.view.form.inherit.mail.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='message_ids']" position="before">
+                <field name="id" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='message_ids']" position="attributes">
+                <attribute name="options">{'root_parent_id': 1}</attribute>
+            </xpath>
+            <xpath expr="//field[@name='activity_ids']" position="replace">
+                <field name="all_activity_ids" widget="mail_activity"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_res_partner_filter_inherit" model="ir.ui.view">
+        <field name="name">view.res.partner.filter.inherit</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="after">
+                <field name="city" filter_domain="[('city', 'ilike', self)]"/>
+                <field name="regulatory_license" filter_domain="[('regulatory_license', 'ilike', self)]"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

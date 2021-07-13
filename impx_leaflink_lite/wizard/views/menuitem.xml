@@ -1,0 +1,75 @@
+<odoo>
+
+    <menuitem id="menu_sync_contacts_to_odoo"
+              name="Sync Contacts to odoo"
+              parent="impx_leaflink_lite.leaf_link_menu_config"
+              action="impx_leaflink_lite.action_sync_contacts_ll"
+              sequence="0"/>
+
+    <menuitem
+            id="menu_stock_sync_from_leaflink_to_odoo"
+            name="Sync From LeafLink to odoo"
+            parent="stock.menu_stock_config_settings"
+            sequence="100"/>
+
+    <menuitem id="menu_sale_sync_from_leaflink_to_odoo"
+              name="Sync From LeafLink to odoo"
+              parent="sale.menu_sale_config"
+              sequence="100"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_strains_ll"
+            name="Sync Strains"
+            parent="impx_leaflink_lite.menu_stock_sync_from_leaflink_to_odoo"
+            id="sync_strains_in_config_stock"
+            sequence="5"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_orders_ll"
+            name="Sync Orders"
+            parent="impx_leaflink_lite.menu_sale_sync_from_leaflink_to_odoo"
+            id="sync_orders_in_config_sale"
+            sequence="5"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_all_ll"
+            name="Sync All"
+            parent="impx_leaflink_lite.menu_stock_sync_from_leaflink_to_odoo"
+            id="sync_all_in_config_stock"
+            sequence="10000"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_bands"
+            name="Sync Brands"
+            parent="impx_leaflink_lite.menu_stock_sync_from_leaflink_to_odoo"
+            id="sync_res_brands_in_config_stock"
+            sequence="5"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_product_lines"
+            name="Sync Product Lines"
+            parent="impx_leaflink_lite.menu_stock_sync_from_leaflink_to_odoo"
+            id="sync_product_lines_in_config_stock"
+            sequence="10"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_product_categories"
+            name="Sync Product Categories"
+            parent="impx_leaflink_lite.menu_stock_sync_from_leaflink_to_odoo"
+            id="sync_product_category_in_config_stock"
+            sequence="15"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_products"
+            name="Sync Products"
+            parent="impx_leaflink_lite.menu_stock_sync_from_leaflink_to_odoo"
+            id="sync_products_in_config_stock"
+            sequence="20"/>
+
+    <menuitem
+            action="impx_leaflink_lite.action_sync_product_images_ll"
+            name="Sync Product Images"
+            parent="impx_leaflink_lite.menu_stock_sync_from_leaflink_to_odoo"
+            id="sync_product_images_in_config_stock"
+            sequence="25"/>
+</odoo>

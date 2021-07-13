@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-extend="mail.widget.Thread.Message">
+        <t t-jquery="p.o_mail_info" t-operation="after">
+            <t t-if="thread._documentID">
+                <p>
+                    <t t-if="message._subject">
+                        <b>
+                            <em> Subject: </em>
+                            <em>
+                                <t t-esc="message._subject"/>
+                            </em>
+                        </b>
+                    </t>
+                </p>
+            </t>
+        </t>
+
+        <t t-jquery="div.o_thread_message_content" t-operation="after">
+            <t t-if="message.getBody().length > 600">
+                <span class="show-more">Show more</span>
+            </t>
+        </t>
+        <t t-jquery="div.o_thread_message_content" t-operation="attributes">
+            <attribute name="class">o_thread_message_content overflow-content-chat</attribute>
+        </t>
+
+    </t>
+</templates>

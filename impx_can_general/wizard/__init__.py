@@ -1,0 +1,1 @@
+from . import generate_package_tags

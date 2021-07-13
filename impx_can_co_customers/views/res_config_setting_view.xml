@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_co_customers_setting_crm_form" model="ir.ui.view">
+        <field name="name">view.co.customers.setting.crm.form</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="90"/>
+        <field name="inherit_id" ref="crm.res_config_settings_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//div[@data-key='crm']" position="inside">
+                <h2>Colorado MED Licensing for Customer Import</h2>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-12 o_setting_box">
+                        <div class="o_setting_right_pane">
+                            <group>
+                                <button name="get_co_customer_setting" type="object" string="Settings" class="fa fa-arrow-right btn-link"/>
+                            </group>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

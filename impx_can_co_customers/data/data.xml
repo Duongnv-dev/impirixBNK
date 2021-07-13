@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="update_customer_form_colorado_web_cron" model="ir.cron">
+        <field name="name">Update Customer From Colorado</field>
+        <field name="model_id" ref="impx_can_co_customers.model_batch_update_customer"/>
+        <field name="state">code</field>
+        <field name="code">model._auto_update_customer()</field>
+        <field name="interval_number">1</field>
+        <field name="interval_type">months</field>
+        <field name="numbercall">-1</field>
+        <field name="doall" eval="False"/>
+    </record>
+</odoo>

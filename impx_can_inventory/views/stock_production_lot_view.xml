@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_production_lot_form_inherit" model="ir.ui.view">
+        <field name="name">stock.production.lot.form.inherit</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_form"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='main_group']/group[last()]" position="after">
+                <group>
+                    <field name="is_cannabis" invisible="1"/>
+                    <field name="is_source_package" invisible="1"/>
+                    <field name="is_connected" invisible="1"/>
+                    <field name="package_tags_id" attrs="{'invisible': [('is_cannabis', '=', False)]}"/>
+                    <field name="old_package_tags_id" attrs="{'invisible': [('is_cannabis', '=', False), ]}"/>
+                    <field name="expiration_date"/>
+                    <field name="external"/>
+                    <field name="license_id"/>
+                    <field name="is_sample" attrs="{'invisible': [('is_cannabis', '=', False)], 'readonly': ['|', ('is_connected', '!=', False), ('is_source_package', '=', True)]}"/>
+                    <field name="lab_testing" attrs="{'invisible': [('is_cannabis', '=', False)]}"/>
+                </group>
+            </xpath>
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="open_split_package" type="object" string="Split" class="oe_highlight" attrs="{'invisible': [('is_sample', '=', True)]}"/>
+                </header>
+            </xpath>
+            <xpath expr="//div[@name='button_box']" position="after">
+                <widget name="web_ribbon" title="SAMPLE" bg_color="bg-danger" attrs="{'invisible': [('is_sample', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <menuitem action="stock.action_production_lot_form" id="stock.menu_action_production_lot_form"
+              parent="stock.menu_stock_inventory_control" groups="stock.group_production_lot" sequence="101" name="Lots/Package tags number"/>
+
+    <record id="view_production_lot_tree_inherit" model="ir.ui.view">
+        <field name="name">stock.production.lot.tree.inherit</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <field name="product_id" position="after">
+                <field name="state" string="Status"/>
+                <field name="product_qty"/>
+                <field name="license_id"/>
+            </field>
+        </field>
+    </record>
+    <record id="stock_search_product_lot_filter_inherit" model="ir.ui.view">
+        <field name="name">stock.search.product.lot.filter.inherit</field>
+        <field name="model">stock.production.lot</field>
+        <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='product_id']" position="after">
+                <filter name="package_tag_is_set" string="Package tag by product" domain="[('package_tags_id','!=',False)]"/>
+            </xpath>
+            <xpath expr="//filter[@name='group_by_product']" position="after">
+                <filter name="group_by_cannabis_license" string="Cannabis License" domain="[]" context="{'group_by':'license_id'}"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

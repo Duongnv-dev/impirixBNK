@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="allow_user_connect_365_form" model="ir.ui.view">
+        <field name="name">Allow Connect Office365</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='signature']" position="after">
+                <field name="allow_connect_365" groups="base.group_system"/>
+                <field name="office365_email" groups="base.group_system"
+                       readonly="1"
+                       attrs="{'invisible': [('allow_connect_365', '!=', True)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <!-- Inherit Form View to Modify it -->
+    <record id="user_token_get_form" model="ir.ui.view">
+        <field name="name">Office365 Token</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form_simple_modif"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='preferences']" position="before">
+                <field name="allow_connect_365" invisible="1" readonly="1" groups="base.group_system"/>
+                <group>
+                    <group>
+                       <button name="get_code" type="object" string="Login Office365" class="fa-sign-in oe_highlight"
+                            attrs="{'invisible': [('allow_connect_365', '=', False)]}"/>
+                    </group>
+                </group>
+                <group>
+                    <field name='event_del_flag' invisible="1"/>
+                </group>
+                <group>
+                    <group>
+                        <field name='last_login' string="Last Login Office365" attrs="{'invisible': [('allow_connect_365', '=', False)]}"/>
+                    </group>
+                    <group>
+                        <field name="office365_email"
+                               readonly="1"
+                               attrs="{'invisible': [('allow_connect_365', '=', False)]}"/>
+                    </group>
+                </group>
+            </xpath>
+
+        </field>
+    </record>
+</odoo>

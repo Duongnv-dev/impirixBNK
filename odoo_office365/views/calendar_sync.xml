@@ -1,0 +1,82 @@
+<odoo>
+    <record id="view_calendar_event_form_inherit" model="ir.ui.view">
+        <field name="name">view.calendar.event.form.inherit</field>
+        <field name="model">calendar.event</field>
+        <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='recurrency']" position="attributes">
+                <attribute name="attrs">{'invisible': [('recurrent_id', '!=', 0)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="odoo_office365.mail_activity_type_view_form" model="ir.ui.view">
+        <field name="name">mail.activity.type.form.inherit.odoo_office365</field>
+        <field name="model">mail.activity.type</field>
+        <field name="inherit_id" ref="mail.mail_activity_type_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='category']" position="after">
+                <field name="sync_office365" attrs="{'invisible': [('category', '!=', 'meeting')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="calendar_sync_tree_view" model="ir.ui.view">
+        <field name="name">calendar.sync.tree.view</field>
+        <field name="model">calendar.sync</field>
+        <field name="arch" type="xml">
+            <tree string="Calendar Sync" decoration-info="event_from=='outlook'" decoration-danger="event_from=='odoo'">
+                <field name="office_id" invisible="1"/>
+                <field name="value" invisible="1"/>
+                <field name="last_modified"/>
+                <field name="name"/>
+                <field name="event_from"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="calendar_sync_form_view" model="ir.ui.view">
+        <field name="name">calendar.sync.form.view</field>
+        <field name="model">calendar.sync</field>
+        <field name="arch" type="xml">
+            <form string="Calendar Sync">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <group>
+                    <div class="oe_title">
+                        <label for="name"/>
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <field name="office_id" invisible="1"/>
+                        <field name="event_from"/>
+                    </group>
+                    <group>
+                        <field name="last_modified"/>
+                        <field name="event_id"/>
+                    </group>
+                </group>
+                <notebook>
+                    <page string="Value">
+                        <field name="value"/>
+                    </page>
+                </notebook>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_calendar_sync">
+        <field name="name">Calendar Sync</field>
+        <field name="res_model">calendar.sync</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="office365_calendar_menu" name="Office365 Calendar" parent="main_office_menu"
+              sequence="40"/>
+
+    <menuitem id="office365_calendar_menu_all" name="Calendar sync"
+              parent="office365_calendar_menu" action="action_calendar_sync"
+              sequence="10"/>
+</odoo>

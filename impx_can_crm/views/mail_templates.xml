@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <template id="assets_backend" name="mail assets" inherit_id="web.assets_backend">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/impx_can_crm/static/src/js/document_thread.js"></script>
+                <script type="text/javascript" src="/impx_can_crm/static/src/js/thread_widget.js"></script>
+                <script type="text/javascript" src="/impx_can_crm/static/src/js/model/message.js"></script>
+                <script type="text/javascript" src="/impx_can_crm/static/src/js/composers/composer.js"></script>
+                <script type="text/javascript" src="/impx_can_crm/static/src/js/composers/chatter_composer.js"></script>
+                <link rel="stylesheet" type="text/css" href="/impx_can_crm/static/src/css/mail_message.css"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

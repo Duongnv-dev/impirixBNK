@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="batch_update_customer_config_form" model="ir.ui.view">
+        <field name="name">batch.update.customer.config.form</field>
+        <field name="model">batch.update.customer.config</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="co_url" widget="url" string="URL for Download"/>
+                        <field name="notify_user_ids" widget="many2many_tags" string="Notify Saleperson"/>
+                    </group>
+                    <notebook>
+                        <page string="Settings for Stores">
+                            <group>
+                                <group>
+                                    <field name="co_menu_stores" string="Facilities type on menu list"/>
+                                </group>
+                                <group></group>
+                            </group>
+                            <notebook>
+                                <page string="Medical">
+                                    <group>
+                                        <group>
+                                            <field name="co_stores_med_sheet_name" string="Sheet name in file"/>
+                                        </group>
+                                        <group>
+                                            <field name="co_stores_med_file_start_read"
+                                                   string="Read file starting from line number(MED)."/>
+                                        </group>
+                                    </group>
+                                    <separator
+                                            string="Map fields in res_partner and columns in excel file (The column index starts at 0.)"/>
+                                    <field name="co_stores_med_map_ids">
+                                        <tree editable="bottom">
+                                            <field name="partner_field"/>
+                                            <field name="column_number" string="Column Index"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Retail">
+                                    <group>
+                                        <group>
+                                            <field name="co_stores_rec_sheet_name" string="Sheet name in file"/>
+                                        </group>
+                                        <group>
+                                            <field name="co_stores_rec_file_start_read"
+                                                   string="Read file starting from line number(REC)"/>
+                                        </group>
+                                    </group>
+                                    <separator
+                                            string="Map fields in res_partner and columns in excel file (The column index starts at 0.)"/>
+                                    <field name="co_stores_rec_map_ids">
+                                        <tree editable="bottom">
+                                            <field name="partner_field"/>
+                                            <field name="column_number" string="Column Index"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </page>
+                        <page string="Settings for Testing Facilities">
+                            <group>
+                                <group>
+                                    <field name="co_menu_testing_facilities" string="Facilities type on menu list"/>
+                                </group>
+                                <group></group>
+                            </group>
+                            <notebook>
+                                <page string="Medical">
+                                    <group>
+                                        <group>
+                                            <field name="co_testing_facilities_med_sheet_name"
+                                                   string="Sheet name in file"/>
+                                        </group>
+                                        <group>
+                                            <field name="co_testing_facilities_med_file_start_read"
+                                                   string="Read file starting from line number(MED)."/>
+                                        </group>
+                                    </group>
+                                    <separator
+                                            string="Map fields in res_partner and columns in excel file (The column index starts at 0.)"/>
+                                    <field name="co_testing_facilities_med_map_ids">
+                                        <tree editable="bottom">
+                                            <field name="partner_field"/>
+                                            <field name="column_number" string="Column Index"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Retail">
+                                    <group>
+                                        <group>
+                                            <field name="co_testing_facilities_rec_sheet_name"
+                                                   string="Sheet name in file"/>
+                                        </group>
+                                        <group>
+                                            <field name="co_testing_facilities_rec_file_start_read" label="1"
+                                                   string="Read file starting from line number(REC)."/>
+                                        </group>
+                                    </group>
+                                    <separator
+                                            string="Map fields in res_partner and columns in excel file (The column index starts at 0.)"/>
+                                    <field name="co_testing_facilities_rec_map_ids">
+                                        <tree editable="bottom">
+                                            <field name="partner_field"/>
+                                            <field name="column_number" string="Column Index"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </page>
+                        <page string="Settings for Transporters">
+                            <group>
+                                <group>
+                                    <field name="co_menu_transporters" string="Facilities type on menu list"/>
+                                </group>
+                                <group></group>
+                            </group>
+                            <notebook>
+                                <page string="Medical">
+                                    <group>
+                                        <group>
+                                            <field name="co_transporters_med_sheet_name" string="Sheet name in file"/>
+                                        </group>
+                                        <group>
+                                            <field name="co_transporters_med_file_start_read"
+                                                   string="Read file starting from line number(MED)."/>
+                                        </group>
+                                    </group>
+                                    <separator
+                                            string="Map fields in res_partner and columns in excel file (The column index starts at 0.)"/>
+                                    <field name="co_transporters_med_map_ids">
+                                        <tree editable="bottom">
+                                            <field name="partner_field"/>
+                                            <field name="column_number" string="Column Index"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                                <page string="Retail">
+                                    <group>
+                                        <group>
+                                            <field name="co_transporters_rec_sheet_name" string="Sheet name in file"/>
+                                        </group>
+                                        <group>
+                                            <field name="co_transporters_rec_file_start_read"
+                                                   string="Read file starting from line number(REC)."/>
+                                        </group>
+                                    </group>
+                                    <separator
+                                            string="Map fields in res_partner and columns in excel file (The column index starts at 0.)"/>
+                                    <field name="co_transporters_rec_map_ids">
+                                        <tree editable="bottom">
+                                            <field name="partner_field"/>
+                                            <field name="column_number" string="Column Index"/>
+                                            <field name="note"/>
+                                        </tree>
+                                    </field>
+                                </page>
+                            </notebook>
+                        </page>
+                    </notebook>
+                    <footer>
+                        <button name="save_config" type="object" string="Save" class="btn-primary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="partner_tree_from_batch_update" model="ir.ui.view">
+        <field name="name">partner_tree_from_batch_update</field>
+        <field name="model">res.partner</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="regulatory_license_type"/>
+                <field name="regulatory_license"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="action_partner_tree_from_batch_update" model="ir.actions.act_window">
+        <field name="name">Customer</field>
+        <field name="res_model">res.partner</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree</field>
+        <field name="context">{'active_test': False}</field>
+        <field name="view_id" ref="impx_can_co_customers.partner_tree_from_batch_update"/>
+    </record>
+
+
+    <record id="batch_update_customer_tree" model="ir.ui.view">
+        <field name="name">batch.update.customer.tree</field>
+        <field name="model">batch.update.customer</field>
+        <field name="arch" type="xml">
+            <tree decoration-info="state=='draft'" decoration-primary="state=='in_progress'"
+                  decoration-muted="state=='done'" decoration-danger="state=='fail'">
+                <field name="name"/>
+                <field name="run_date"/>
+                <field name="state" string="Status"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="batch_update_customer_form" model="ir.ui.view">
+        <field name="name">batch.update.customer.form</field>
+        <field name="model">batch.update.customer</field>
+        <field name="arch" type="xml">
+            <form>
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <field name="hide_validation" invisible="1"/>
+                    <field name="hide_suggest" invisible="1"/>
+                    <field name="readonly_file" invisible="1"/>
+                    <button name="manual_download_file" string="Download file"
+                            type="object" class="oe_highlight"
+                            groups="base.group_system"
+                            attrs="{'invisible': ['|', '|', '|', ('state', 'in', ('done', 'fail')), ('stores_file', '!=', False), ('testing_facilities_file', '!=', False), ('transporters_file', '!=', False)]}"/>
+                    <button name="manual_suggest_file" string="Prepare data" type="object" class="oe_highlight"
+                            groups="base.group_system"
+                            attrs="{'invisible': ['|', ('hide_suggest', '=', True), ('state', '=', 'fail')]}"/>
+                    <button name="manual_validation_file" string="Validation" type="object" class="oe_highlight"
+                            groups="base.group_system"
+                            attrs="{'invisible': ['|', ('hide_validation', '=', True), ('state', '=', 'fail')]}"/>
+                    <button name="set_to_draft" string="Set to Draft" type="object" class="oe_highlight"
+                            groups="base.group_system" attrs="{'invisible': [('state', '!=', 'fail')]}"/>
+                </header>
+                <sheet>
+                    <div>
+                        <h1>
+                            <field name="name" placeholder="Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="url" widget="url" readonly="1" attrs="{'invisible': [('url', '=', False)]}"/>
+                            <field name="batch_url" widget="url" invisible="1"/>
+                            <field name="run_date" readonly="1"/>
+                        </group>
+                        <group>
+                            <field name = "stores_file" filename="stores_file_name" force_save="1" attrs="{'readonly': [('state', 'in', ('in_progress', 'done', 'fail')), ('readonly_file', '=', True)]}"/>
+                            <field name = "stores_file_name" invisible="1"/>
+                            <field name = "testing_facilities_file" filename="testing_facilities_file_name" force_save="1" attrs="{'readonly': [('state', 'in', ('in_progress', 'done', 'fail')), ('readonly_file', '=', True)]}"/>
+                            <field name = "testing_facilities_file_name" invisible="1"/>
+                            <field name = "transporters_file" filename="transporters_file_name" force_save="1" attrs="{'readonly': [('state', 'in', ('in_progress', 'done', 'fail')), ('readonly_file', '=', True)]}"/>
+                            <field name = "transporters_file_name" invisible="1"/>
+                        </group>
+                    </group>
+                    <separator string="Customer is ready to update"/>
+                    <notebook>
+                        <page string="Customer is ready to create">
+                            <field name="create_colorado_partner_ids"
+                                   attrs="{'readonly': ['|', ('state', 'in', ('done', 'fail'))]}">
+                                <tree default_order="name asc" editable="bottom">
+                                    <field name="license_number"/>
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                    <field name="type_of_co_partner"/>
+                                    <field name="city"/>
+                                    <field name="zip_code"/>
+                                    <field name="state" string="Action"/>
+                                    <field name="update_date"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="License expired customer">
+                            <field name="license_expired_colorado_partner_ids"
+                                   attrs="{'readonly': [('state', 'in', ('done', 'fail'))]}">
+                                <tree default_order="name asc" editable="bottom">
+                                    <field name="license_number"/>
+                                    <field name="name"/>
+                                    <field name="type"/>
+                                    <field name="type_of_co_partner" invisible="1"/>
+                                    <field name="city"/>
+                                    <field name="zip_code"/>
+                                    <field name="state" string="Action"/>
+                                    <field name="update_date" invisible="1"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <separator string="Customer has been updated" attrs="{'invisible': [('state', '!=', 'done')]}"/>
+                    <notebook attrs="{'invisible': [('state', '!=', 'done')]}">
+                        <page string="Customer has been created">
+                            <field name="new_customer_ids" readonly="1">
+                                <tree>
+                                    <field name="partner_id"/>
+                                    <field name="regulatory_license_type"/>
+                                    <field name="regulatory_license"/>
+                                    <field name="user_id"/>
+                                    <button name="open_partner" string="View Detail" type="object" class="btn-primary"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Customer has been added license expired">
+                            <field name="license_expired_customer_ids" readonly="1">
+                                <tree>
+                                    <field name="partner_id"/>
+                                    <field name="regulatory_license_type"/>
+                                    <field name="regulatory_license"/>
+                                    <field name="user_id"/>
+                                    <button name="open_partner" string="View Detail" type="object" class="btn-primary"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                    <separator string="Logs"/>
+                    <field name="log_ids" readonly="1" style="pointer-events:none;">
+                        <tree>
+                            <field name="batch_id" invisible="1"/>
+                            <field name="log_time"/>
+                            <field name="message"/>
+                        </tree>
+                    </field>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="batch_update_customer_action" model="ir.actions.act_window">
+        <field name="name">Colorado License Updates</field>
+        <field name="res_model">batch.update.customer</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+            id="menu_crm_batch_update_customer"
+            name="Colorado License Updates"
+            action="batch_update_customer_action"
+            parent="crm.menu_crm_config_lead"
+            groups="sales_team.group_sale_manager"
+            sequence="10"/>
+</odoo>

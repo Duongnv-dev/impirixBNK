@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="impx_view_account_move_reversal" model="ir.ui.view">
+        <field name="name">Impx account move reversal form</field>
+        <field name="model">account.move.reversal</field>
+        <field name="priority" eval="100"/>
+        <field name="inherit_id" ref="account.view_account_move_reversal"/>
+        <field name="arch" type="xml">
+            <field name="reason" position="before">
+                <field name="shipping_charge"/>
+            </field>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,7 @@
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/impx_leaflink_lite/static/src/scss/product_images_backend.scss"/>
+        </xpath>
+    </template>
+</odoo>

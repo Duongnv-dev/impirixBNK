@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="wizard_split_stock_production_lot_form" model="ir.ui.view">
+        <field name="name">wizard.split.stock.production.lot.form</field>
+        <field name="model">wizard.split.stock.production.lot</field>
+        <field name="priority" eval="100"/>
+        <field name="arch" type="xml">
+            <form delete="false" create="false">
+                <group>
+                    <group>
+                        <field name="license_id" invisible="1"/>
+                        <field name="lot_id" readonly="1" force_save="1"/>
+                        <field name="new_package_tag_id" attrs="{'required': [('is_cannabis', '=', True)]}"
+                               domain="[('used', '=', False), ('license_id', '=', license_id), ('metrc_sync_state', '=', 'blank')]"/>
+                    </group>
+                    <group>
+                        <field name="new_qty"/>
+                        <field name="new_name"/>
+                        <field name="is_cannabis" invisible="1"/>
+                        <field name="from_move_line_id" invisible="1"/>
+                        <field name="is_sample" attrs="{'invisible': [('is_cannabis', '=', False)]}"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button string="Split" name="split_package" type="object" class="btn-primary"/>
+                    <button string="Discard" name="cancel_button" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_split_stock_production_lot_action" model="ir.actions.act_window">
+        <field name="name">Split package</field>
+        <field name="res_model">wizard.split.stock.production.lot</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+<!--    management-->
+    <record id="wizard_split_stock_production_lot_management_form" model="ir.ui.view">
+        <field name="name">wizard.split.stock.production.lot.form</field>
+        <field name="model">wizard.split.stock.production.lot</field>
+        <field name="priority" eval="10000"/>
+        <field name="arch" type="xml">
+            <form delete="false" create="false" edit="false">
+                <header>
+                    <button name="sync_multi_to_metrc" type="object" string="Sync Metrc" attrs="{'invisible':[('sync_state', '=', 'done')]}"/>
+                    <button name="aaa" type="object" string="fail" />
+                    <field name="sync_state" widget="statusbar"/>
+                </header>
+
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="license_id" invisible="1"/>
+                            <field name="lot_id" readonly="1" force_save="1"/>
+                            <field name="old_qty"/>
+                        </group>
+                        <group>
+                            <field name="new_lot_id" readonly="1" force_save="1"/>
+                            <field name="new_qty"/>
+                            <field name="is_cannabis"/>
+                            <field name="create_date"/>
+                            <field name="create_uid"/>
+                            <field name="sync_msg"/>
+                            <field name="from_move_line_id" invisible="1"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="wizard_split_stock_production_lot_management_tree" model="ir.ui.view">
+        <field name="name">wizard.split.stock.production.lot.tree</field>
+        <field name="model">wizard.split.stock.production.lot</field>
+        <field name="priority" eval="10000"/>
+        <field name="arch" type="xml">
+            <tree delete="false" create="false" edit="false">
+                <field name="license_id"/>
+                <field name="lot_id"/>
+                <field name="new_lot_id"/>
+                <field name="old_qty"/>
+                <field name="new_qty"/>
+                <field name="product_id"/>
+                <field name="is_cannabis"/>
+                <field name="create_date"/>
+                <field name="create_uid"/>
+                <field name="from_move_line_id" invisible="1"/>
+                <field name="sync_state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="wizard_split_stock_production_lot_management_search" model="ir.ui.view">
+        <field name="name">wizard.split.stock.production.lot.search</field>
+        <field name="model">wizard.split.stock.production.lot</field>
+        <field name="priority" eval="10000"/>
+        <field name="arch" type="xml">
+            <search>
+                <field name="license_id"/>
+                <field name="lot_id"/>
+                <field name="new_lot_id"/>
+                <field name="product_id"/>
+                <field name="create_uid"/>
+                <field name="sync_state"/>
+                <field name="create_date" string="create date greater than" filter_domain="[('create_date', '&gt;=', self)]"/>
+                <field name="create_date" string="create date less than" filter_domain="[('create_date', '&lt;=', self)]"/>
+
+                <group name="filter_group">
+                    <filter name="is_cannabis_true" string="Cannabis" domain="[('is_cannabis', '=', True)]"/>
+                </group>
+
+                <group name="group_by_group">
+                    <filter name="product_id_group_by" string="Product" context="{'group_by':'product_id'}"/>
+                    <filter name="create_uid_group_by" string="Create user" context="{'group_by':'create_uid'}"/>
+                    <filter name="sync_state_group_by" string="Sync state" context="{'group_by':'sync_state'}"/>
+                </group>
+
+            </search>
+        </field>
+    </record>
+
+    <record id="wizard_split_stock_production_lot_management_action" model="ir.actions.act_window">
+        <field name="name">Split package</field>
+        <field name="res_model">wizard.split.stock.production.lot</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="context">{'form_view_ref': 'impx_can_inventory.wizard_split_stock_production_lot_management_form', 'default_search_is_cannabis_true':1}</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem id="menu_wizard_split_stock_production_lot_management_action"
+              action="wizard_split_stock_production_lot_management_action"
+              parent="stock.menu_stock_warehouse_mgmt" sequence="120"/>
+</odoo>

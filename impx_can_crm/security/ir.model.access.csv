@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_opportunity_list_group_user_all,opportunity_list_group_user_all,model_opportunity_list,,1,0,0,0
+access_opportunity_list_group_sale_manager,opportunity_list group_sale_manager,model_opportunity_list,sales_team.group_sale_manager,1,1,1,1
+access_impirix_crm_activity_report_group_sale_manager,impirix_crm_activity_report group_sale_manager,model_impirix_crm_activity_report,sales_team.group_sale_manager,1,0,0,0

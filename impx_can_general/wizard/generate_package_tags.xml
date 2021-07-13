@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="generate_package_tag_number_view_form" model="ir.ui.view">
+        <field name="name">generate.package.tags.number.form</field>
+        <field name="model">generate.package.tags</field>
+        <field name="arch" type="xml">
+            <form string="Generate Package">
+                <group>
+                    <group>
+                        <field name="cannabis_license_id" invisible="1"/>
+                        <field name="beginning_id"/>
+                        <field name="quantities"/>
+                    </group>
+                    <group>
+                        <field name="sequence_start"/>
+                        <field name="receive_date"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_generate_package_tag_number" string="Save" type="object"
+                            class="btn-primary"/>
+                    <button string="Discard" class="btn-secondary" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_generate_package_tag_number" model="ir.actions.act_window">
+        <field name="name">Generate Package Tag Number</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">generate.package.tags</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="generate_package_tag_number_view_form"/>
+        <field name="target">new</field>
+    </record>
+</odoo>

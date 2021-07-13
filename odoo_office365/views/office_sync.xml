@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+<!--        &lt;!&ndash;   new sync form view      &ndash;&gt;-->
+<!--        <record id="new_sync_office_form" model="ir.ui.view">-->
+<!--            <field name="name">Office365 Sync Form</field>-->
+<!--            <field name="model">office.sync</field>-->
+<!--            <field name="arch" type="xml">-->
+<!--                <form string="Office365 Form" create="false">-->
+<!--                    <sheet>-->
+<!--                        <div class="oe_title">-->
+<!--                            <group>-->
+<!--                                <group>-->
+<!--                                    <field name="res_user"/>-->
+<!--                                    <field name="code"/>-->
+
+<!--                                    <field name="office365_email"/>-->
+
+<!--                                    <field name="office365_id_address"/>-->
+
+
+<!--                                </group>-->
+
+
+<!--                            </group>-->
+<!--                        </div>-->
+<!--                        <notebook colspan="4">-->
+
+
+<!--&lt;!&ndash;                            <div class="row mt16 o_settings_container">&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                <div class="col-lg-6 o_setting_box col-12">&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="o_setting_left_pane"&ndash;&gt;-->
+<!--&lt;!&ndash;                                         title="Use to Import Emails,Contacts,Calender and tasks from Office365 To Odoo.">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <field name="is_import"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    <div class="o_setting_right_pane">&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <label for="is_import"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="text-muted">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            Import Emails,Contacts,Calender and tasks from Office365 To Odoo.&ndash;&gt;-->
+<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                        <div class="content-group o_setting_box"&ndash;&gt;-->
+<!--&lt;!&ndash;                                             attrs="{'invisible': [('is_import', '=', False)]}">&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <div class="mt16">&ndash;&gt;-->
+<!--&lt;!&ndash;                                                <group>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <label for="is_import_calender"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           string="Import/Update Office365 Calender to Odoo:"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           class="col-3 col-lg-3 o_light_label"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <field name="is_import_calender"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <label for="is_import_contact"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           string="Import/Update Office365 Contacts to Odoo."&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           class="col-3 col-lg-3 o_light_label"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <field name="is_import_contact"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <label for="is_import_email"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           string="Import/Update Office365 Emails to Odoo."&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           class="col-3 col-lg-3 o_light_label"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                                    <field name="is_import_email"/>&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    <label for="is_import_task"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           string="Import/Update Office365 Tasks to Odoo."&ndash;&gt;-->
+<!--&lt;!&ndash;                                                           class="col-3 col-lg-3 o_light_label"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                                    <field name="is_import_task"/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                                </group>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                            <button name="save_data" type="object" string="Pull Data"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    class="oe_highlight"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                    style="width:85%"/>&ndash;&gt;-->
+
+
+<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                    </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                </div>&ndash;&gt;-->
+
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+
+
+<!--                            <page name='office_email' string="Import">-->
+<!--                                <group>-->
+<!--                                    <field name="send_mail_flag"/>-->
+
+<!--                                </group>-->
+<!--                                <group>-->
+<!--                                     <group>-->
+<!--                                    <field name="is_import_contact"/>-->
+<!--                                </group>-->
+
+<!--                                <group>-->
+<!--                                    <field name="is_import_email"/>-->
+<!--                                </group>-->
+
+<!--                                <group>-->
+<!--                                    <field name="is_import_task"/>-->
+<!--                                </group>-->
+
+<!--                                <group>-->
+
+<!--                                    <field name="is_import"/>-->
+<!--                                </group>-->
+
+<!--                                </group>-->
+
+<!--                                    <button name="sync_customer_mail" type="object" string="Import Office365 Emails"-->
+<!--                                            class="oe_highlight"/>-->
+<!--                                <notebook>-->
+<!--                                     <page name="import_logs" string = 'Office365 Logs'>-->
+<!--                                <p>-->
+<!--                                    logs will appear here..-->
+<!--                                </p>-->
+<!--                            </page>-->
+
+<!--                                </notebook>-->
+
+<!--                            </page>-->
+<!--                            <page name='office_contact' string="Export">-->
+<!--                                <group>-->
+
+<!--                                </group>-->
+<!--                                <group>-->
+
+<!--                                     <group>-->
+<!--                                    <field name="is_export_contact"/>-->
+<!--                                </group>-->
+
+<!--                                <group>-->
+<!--                                    <field name="is_export_task"/>-->
+<!--                                </group>-->
+
+<!--                                <group>-->
+
+<!--                                    <field name="is_export_calender"/>-->
+<!--                                </group>-->
+
+
+<!--                                </group>-->
+<!--                                <button name="export_contacts" type="object" string="Export Office365 Contacts"-->
+<!--                                            class="oe_highlight"/>-->
+<!--                                 <notebook>-->
+<!--                                     <page name="export_logs" string = 'Office365 Logs'>-->
+<!--                                <p>-->
+<!--                                    logs will appear here..-->
+<!--                                </p>-->
+<!--                            </page>-->
+
+<!--                                </notebook>-->
+<!--                            </page>-->
+
+
+<!--                        </notebook>-->
+
+<!--                    </sheet>-->
+
+<!--                </form>-->
+<!--            </field>-->
+<!--        </record>-->
+
+<!--        &lt;!&ndash;        new sync action window&ndash;&gt;-->
+<!--        <record id="new_sync_office_action" model="ir.actions.act_window">-->
+<!--            <field name="name">office365 Sync Mail and Contact</field>-->
+<!--            <field name="res_model">office.sync</field>-->
+<!--            <field name="view_mode">form</field>-->
+<!--            <field name="target">inline</field>-->
+<!--        </record>-->
+
+<!--        <menuitem id="new_office365_sync_menu" name="New Office365" parent="main_office_menu"-->
+<!--                  action="new_sync_office_action"-->
+<!--                  sequence="11"/>-->
+
+    </data>
+</odoo>

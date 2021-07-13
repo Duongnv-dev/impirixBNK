@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="shopify_form_view">
+        <field name="name">shopify.form</field>
+        <field name="model">office.sync</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Settings" create="false" edit="false">
+                <sheet>
+                    <group>
+                        <group>
+                            <h1>ODOO Office365 Connector</h1>
+                        </group>
+                        <group>
+                            <group>
+
+                            </group>
+
+                        </group>
+                    </group>
+                    <group>
+                        <!--                        <group>-->
+                        <!--                            <field name="res_user"/>-->
+                        <!--                            <field name="office365_email"/>-->
+                        <!--                        </group>-->
+
+                        <group>
+                            <!--domain="[('shopify_instance', '=', shopify_instance.id)]"-->
+
+<!--                            <field name="is_manual_sync" invisible="0"-->
+<!--                                   attrs="{'readonly':[('is_auto_sync','=',True)]}"/>-->
+<!--                            <span attrs="{'invisible':[('is_auto_sync','=',False)]}" class="text-success">To enable-->
+<!--                                Manual Import/Export check box, you need to uncheck Auto Import/export-->
+<!--                            </span>-->
+
+<!--                            <field name="is_auto_sync" attrs="{'readonly':[('is_manual_sync','=',True)]}"/>-->
+<!--                            <span attrs="{'invisible':[('is_manual_sync','=',False)]}" class="text-success">To enable-->
+<!--                                Auto Import/Export check box, you need to uncheck Manual Import/export-->
+<!--                            </span>-->
+
+                        </group>
+                    </group>
+                    <div >
+                        <group>
+                            <div class="content-group" >
+                                <group col="4">
+
+                                    <group>
+                                        <h2>Object</h2>
+                                    </group>
+                                    <group>
+
+                                        <span>
+                                            <h2>Import</h2>
+                                            Import from Office365 to ODOO.
+                                        </span>
+                                    </group>
+                                    <group>
+
+                                        <span>
+                                            <h2>Export</h2>
+                                            Export from ODOO to Office365.
+                                        </span>
+                                    </group>
+                                </group>
+                                <group col="4">
+                                    <group>
+                                        <strong>Contact</strong>
+                                    </group>
+                                    <group>
+                                        <field name="is_import_contact" nolabel="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_export_contact" nolabel="1"/>
+                                    </group>
+                                    <group></group>
+                                </group>
+                                <group col="4">
+                                    <group>
+                                        <strong>Email</strong>
+                                    </group>
+                                    <group>
+                                        <field name="is_import_email" nolabel="1"/>
+                                    </group>
+                                    <group></group>
+                                </group>
+                                <group col="4">
+                                    <group>
+                                        <strong>Calendar</strong>
+                                    </group>
+                                    <group>
+                                        <field name="is_import_calendar" nolabel="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_export_calendar" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <group col="4">
+                                    <group>
+                                        <strong>Task</strong>
+                                    </group>
+                                    <group>
+                                        <field name="is_import_task" nolabel="1"/>
+                                    </group>
+                                    <group>
+                                        <field name="is_export_task" nolabel="1"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <group>
+                                        <field name="is_auto_sync" />
+                                    </group>
+                                    <group>
+                                        <field name="interval_number" attrs="{'invisible':[('is_auto_sync','=',False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="interval_unit" attrs="{'invisible':[('is_auto_sync','=',False)]}"/>
+                                    </group>
+                                </group>
+                                <group col="3">
+                                    <group>
+                                        <field name="is_manual_sync"/>
+                                    </group>
+                                    <group>
+                                        <field name="from_date" attrs="{'invisible':[('is_manual_sync','=',False)]}"/>
+                                    </group>
+                                    <group>
+                                        <field name="to_date" attrs="{'invisible':[('is_manual_sync','=',False)]}"/>
+
+                                    </group>
+                                    <group>
+
+                                    </group>
+                                </group>
+
+                                <button name="sync_data" attrs="{'invisible': [('is_auto_sync', '=', True)]}"
+                                        type="object" string="Sync" class="oe_highlight" icon="fa-refresh fa-2x"/>
+<!--                                <button name="activate_scheduler" attrs="{'invisible': [('is_auto_sync', '=', False)]}"-->
+<!--                                        type="object" string="Activate Scheduler" class="oe_highlight" icon="fa-refresh fa-2x"/>-->
+                            </div>
+
+
+                        </group>
+
+                    </div>
+                    <!--auto Scheduler-->
+                    <!--                    <div attrs="{'invisible':[('is_auto_sync','=',False)]}">-->
+                    <!--                        <group>-->
+
+                    <!--                            <div class="content-group" attrs="{'visible': [('is_manual_sync', '=', True)]}">-->
+                    <!--                                 <h3> Activate Auto Scheduler</h3>-->
+                    <!--                                <group>-->
+                    <!--                                    <group>-->
+                    <!--                                        <h5>Auto Import Contact</h5>-->
+                    <!--                                        <field name="im_auto_contact" nolabel="1"/>-->
+
+                    <!--                                        <field name="contact_interval"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_contact', '=', False)]}"/>-->
+                    <!--                                        <field name="contact_interval_unit"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_contact', '=', False)]}"/>-->
+
+                    <!--                                    </group>-->
+                    <!--                                    <group>-->
+                    <!--                                        <h5>Auto Import Calender</h5>-->
+                    <!--                                        <field name="im_auto_calender" nolabel="1"/>-->
+
+                    <!--                                        <field name="calendar_interval"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_calender', '=', False)]}"/>-->
+                    <!--                                        <field name="cal_interval_unit"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_calender', '=', False)]}"/>-->
+
+                    <!--                                    </group>-->
+                    <!--                                    <group>-->
+                    <!--                                        <h5>Auto Import Email</h5>-->
+                    <!--                                        <field name="im_auto_email" nolabel="1"/>-->
+
+                    <!--                                        <field name="email_interval"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_email', '=', False)]}"/>-->
+                    <!--                                        <field name="email_interval_unit"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_email', '=', False)]}"/>-->
+
+                    <!--                                    </group>-->
+                    <!--                                    <group>-->
+                    <!--                                        <h5>Auto Import Task</h5>-->
+                    <!--                                        <field name="im_auto_task" nolabel="1"/>-->
+
+                    <!--                                        <field name="task_interval"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_task', '=', False)]}"/>-->
+                    <!--                                        <field name="task_interval_unit"-->
+                    <!--                                               attrs="{'invisible': [('im_auto_task', '=', False)]}"/>-->
+
+                    <!--                                    </group>-->
+                    <!--                                </group>-->
+
+                    <!--                                <button name="activate_scheduler" attrs="{'invisible': [('im_auto_task', '=', False),('im_auto_email', '=', False),('im_auto_contact', '=', False),('im_auto_calender', '=', False)]}"-->
+                    <!--                                        type="object" string="Activate" class="oe_highlight" />-->
+                    <!--                            </div>-->
+
+
+                    <!--                        </group>-->
+                    <!--                    </div>-->
+                    <!-- End -->
+                    <notebook colspan="3">
+                        <page string="Import History details" autofocus="autofocus">
+                            <group>
+                                <field name="history_line" mode="tree,kanban">
+                                    <tree string="Sales Order Lines" create="false" delete="true" limit="15">
+                                        <field name="last_sync" width="20%"/>
+                                        <field name="sync_type" width="10%" type="char"/>
+                                        <field name="no_im_contact" width="10%" type="char"/>
+                                        <field name="no_up_contact" width="10%" type="char"/>
+                                        <field name="no_im_email" width="10%" type="char"/>
+                                        <field name="no_im_calender" width="10%" type="char"/>
+                                        <field name="no_up_calender" width="10%" type="char"/>
+                                        <field name="no_im_task" width="10%" type="char"/>
+                                        <field name="no_up_task" width="10%" type="char"/>
+                                        <field name="status" width="10%"/>
+                                    </tree>
+
+                                </field>
+
+                            </group>
+                        </page>
+
+                    </notebook>
+
+                </sheet>
+
+            </form>
+        </field>
+
+    </record>
+</odoo>
+
+

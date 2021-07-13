@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="shipping_charge_from_leaflink" model="product.product">
+            <field name="name">Shipping Charge</field>
+            <field name="type">service</field>
+        </record>
+    </data>
+</odoo>

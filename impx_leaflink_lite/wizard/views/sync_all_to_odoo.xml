@@ -1,0 +1,23 @@
+<odoo>
+    <record id="sync_all_ll_view_form" model="ir.ui.view">
+        <field name="name">sync_all_ll_view_form</field>
+        <field name="model">sync.all.ll</field>
+        <field name="arch" type="xml">
+            <form string="Sync All">
+                <footer>
+                    <button string="Sync all" type="object" name="sync_all_to_odoo" class="btn-primary"/>
+                    <button string="Cancel" class="btn btn-default" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_sync_all_ll" model="ir.actions.act_window">
+        <field name="name">Sync All</field>
+        <field name="res_model">sync.all.ll</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="view_id" ref="impx_leaflink_lite.sync_all_ll_view_form"/>
+    </record>
+
+</odoo>

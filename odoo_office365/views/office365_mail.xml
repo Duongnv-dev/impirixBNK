@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="office365_mail_search_view" model="ir.ui.view">
+        <field name="name">office365.mail.search.view</field>
+        <field name="model">office365.mail</field>
+        <field name="arch" type="xml">
+            <search string="Office 365 Mails">
+                <field name="email_from" />
+                <field name="email_to" />
+                <field name="user_id" />
+                <separator/>
+                <filter string="Inbox" name="inbox" domain="[('type', '=', 'inbox')]"/>
+                <filter string="Sent" name="outbox" domain="[('type', '=', 'outbox')]"/>
+                <separator/>
+                <group expand="0" name="group_by" string="Group By">
+                    <filter name="group_user" string="User" context="{'group_by' : 'user_id'}"/>
+                    <filter name="group_type" string="Inbox/Sent" context="{'group_by': 'type'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="office365_mail_tree_view" model="ir.ui.view">
+        <field name="name">office365.mail.tree.view</field>
+        <field name="model">office365.mail</field>
+        <field name="arch" type="xml">
+            <tree string="Office 365 Mail" decoration-info="type=='inbox'" decoration-danger="type=='outbox'">
+                <field name="date"/>
+                <field name="type"/>
+                <field name="subject"/>
+                <field name="email_from"/>
+                <field name="email_to"
+                       string="To &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"/>
+                <field name="email_cc"/>
+                <field name="email_bcc"/>
+                <field name="user_id"/>
+                <field name="partner_ids" string="Assigned Customer" widget="many2many_tags"/>
+                <field name="crm_lead_ids" string="Assigned Opportunity" widget="many2many_tags"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="office365_mail_hidden_tree_view" model="ir.ui.view">
+        <field name="name">office365.mail.hidden.tree.view</field>
+        <field name="model">office365.mail</field>
+        <field name="priority">1000</field>
+        <field name="arch" type="xml">
+            <tree string="Office365 Emails" decoration-info="type=='inbox'" decoration-danger="type=='outbox'">
+                <field name="date"/>
+                <field name="type"/>
+                <field name="subject"/>
+                <field name="email_from"/>
+                <field name="email_to"
+                       string="To &#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;
+&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;"/>
+                <field name="email_cc"/>
+                <field name="email_bcc"/>
+                <field name="user_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="office365_mail_form_view" model="ir.ui.view">
+        <field name="name">office365.mail.form.view</field>
+        <field name="model">office365.mail</field>
+        <field name="arch" type="xml">
+            <form string="Office 365 Mail">
+                <sheet>
+                    <header>
+                        <button name="manual_assign_mail_to_partner_opportunity"
+                                type="object" string="Assign"
+                                attrs="{'invisible': [('state', 'not in', ('assign_fail', 'mismatch'))]}" class="oe_highlight"/>
+
+                        <button name="move_to_special"
+                                type="object" string="Hide Email"
+                                attrs="{'invisible': [('state', 'in', ('assigned','special'))]}"
+                                groups="base.group_user"
+                                class="oe_highlight"/>
+
+                        <field name="state" widget="statusbar"
+                               statusbar_visible="new,assigned,assign_fail"
+                               attrs="{'invisible': [('state', '=', 'special')]}"/>
+                    </header>
+                    <label for="subject" class="oe_edit_only"/>
+                    <h2><field name="subject"/></h2>
+                    <group>
+                        <group>
+                            <field name="type"/>
+                            <field name="email_from"/>
+                            <field name="email_to"/>
+                            <field name="email_cc"/>
+                            <field name="email_bcc"/>
+                            <field name="date"/>
+                            <field name="user_id"/>
+                            <field name="office_id" invisible="1"/>
+                            <field name="mail_conversationIndex" invisible="1"/>
+                            <field name="mail_address_ids" invisible="1"/>
+                        </group>
+                        <group attrs="{'invisible': [('state', '!=', 'assigned')]}">
+                            <field name="partner_ids" string="Assigned Customer" widget="many2many_tags" readonly="1"/>
+                            <field name="crm_lead_ids" string="Assigned Opportunity" widget="many2many_tags" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Body">
+                            <field name="body" widget="html" options="{'style-inline': true}"/>
+                        </page>
+                        <page string="Attachments">
+                            <field name="attachment_ids"/>
+                        </page>
+                        <page string="Assign logs">
+                            <field name="assign_log"/>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_office365_mail">
+        <field name="name">All Emails</field>
+        <field name="res_model">office365.mail</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_office365_mail_mismatch">
+        <field name="name">Unassigned Emails</field>
+        <field name="res_model">office365.mail</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'mismatch')]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_office365_mail_assign_fail">
+        <field name="name">Assignment Errors</field>
+        <field name="res_model">office365.mail</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[('state', '=', 'assign_fail')]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_office365_mail_special">
+        <field name="name">Hidden Emails</field>
+        <field name="res_model">office365.mail</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="office365_mail_hidden_tree_view"/>
+        <field name="domain">[('state', '=', 'special')]</field>
+    </record>
+
+
+    <menuitem id="office365_mail_menu" name="Office365 Mails" parent="main_office_menu"
+              sequence="20"/>
+
+    <menuitem id="office365_mail_menu_all" name="All Emails"
+              parent="office365_mail_menu" action="action_office365_mail"
+              sequence="10"/>
+
+    <menuitem id="office365_mail_menu_mismatch" name="Unassigned Emails"
+              parent="office365_mail_menu" action="action_office365_mail_mismatch"
+              sequence="20"/>
+
+    <menuitem id="office365_mail_menu_assign_fail" name="Assignment Errors"
+              parent="office365_mail_menu" action="action_office365_mail_assign_fail"
+              groups="sales_team.group_sale_manager"
+              sequence="30"/>
+
+    <menuitem id="office365_mail_menu_mail_special" name="Hidden Emails"
+              parent="office365_mail_menu" action="action_office365_mail_special"
+              groups="base.group_user"
+              sequence="40"/>
+
+    <menuitem id="office365_mail_menu_duplicate_email" name="Duplicate Customers/Emails"
+              parent="office365_mail_menu" action="partner_filter_group_by_mail_action"
+              groups="base.group_user"
+              sequence="50"/>
+
+</odoo>

@@ -1,0 +1,151 @@
+<odoo>
+
+    <data noupdate="1">
+        <record id="my_record_01" model="office.settings">
+            <field name="field_name">Office365</field>
+        </record>
+    </data>
+
+    <data noupdate="1">
+        <record id="record_01" model="office.sync">
+            <field name="field_name">Office</field>
+        </record>
+    </data>
+
+    <data>
+
+        <!--       -->
+
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_calendar_event_calendar" model="ir.ui.view">
+            <field name="name">calendar.event.calendar</field>
+            <field name="model">calendar.event</field>
+            <field name="priority" eval="3"/>
+<!--            <field name="inherit_id" ref="calendar.view_calendar_event_calendar"/>-->
+            <field name="arch" type="xml">
+                <calendar js_class="attendee_calendar"  string="Meetings" date_start="start" date_stop="stop" date_delay="duration"
+                          all_day="allday" event_open_popup="true" event_limit="5" color="category_name">
+                <field name="attendee_status"/>
+                <field name="partner_id"/>
+                <field name="partner_ids" widget="many2many_tags_avatar" write_model="calendar.contacts" write_field="partner_id" avatar_field="image_128"/>
+                <field name="description"/>
+
+            </calendar>
+
+            </field>
+        </record>
+
+        <!--        calendar inherit-->
+        <!-- Inherit Form View to Modify it -->
+        <record id="inherit_calendar_form" model="ir.ui.view">
+            <field name="name">calendar.event.form</field>
+            <field name="model">calendar.event</field>
+            <field name="inherit_id" ref="calendar.view_calendar_event_form"/>
+            <field name="arch" type="xml">
+
+
+                <xpath expr="//field[@name='categ_ids']" position="replace">
+                    <!-- Add your fields or attributes here -->
+                    <field name="categ_ids" widget="many2many_tags"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="office365_form_view">
+            <field name="name">office.form</field>
+            <field name="model">office.settings</field>
+            <field name="arch" type="xml">
+                <form string="Office Settings" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <h1>Office365 Settings</h1>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <field name="redirect_url"/>
+                                <field name="client_id"/>
+                                <field name="secret" password="True"/>
+                                <button name="save_data" type="object" string="Save" class="oe_highlight"
+                                        style="width:20%"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record model="ir.actions.act_window" id="office_action">
+            <field name="name">Office365 Settings</field>
+            <field name="res_model">office.settings</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="odoo_office365.my_record_01"/>
+            <field name="target">inline</field>
+        </record>
+
+
+        <record id="sync_office_action" model="ir.actions.act_window">
+            <field name="name">office365 Sync Mail and Contact</field>
+            <field name="res_model">office.sync</field>
+            <field name="view_mode">form</field>
+            <field name="res_id" ref="odoo_office365.record_01"/>
+            <field name="target">inline</field>
+        </record>
+
+        <menuitem id="office365_menu" name="Office365 Credential"
+                  parent="base.menu_users" action="office_action"/>
+        <menuitem id="main_office_menu" web_icon="odoo_office365,static/description/icon.png" name="Office365 "
+                  groups="base.group_user"/>
+        <menuitem id="office365_sync_menu" name="Office365 Sync" parent="main_office_menu" action="sync_office_action"
+                  sequence="10"/>
+
+        <record id="view_res_partner_filter_group_by_mail_inherit" model="ir.ui.view">
+            <field name="name">view.res.partner.filter.group.by.mail.inherit</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//filter[@name='group_country']" position="after">
+                    <filter string="Assigned to me" name="my_assigned" domain="[('user_id', '=', uid)]"/>
+                    <filter name="group_email" string="Email" context="{'group_by': 'email'}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_partner_duplicate_mail_tree" model="ir.ui.view">
+            <field name="name">res.partner.tree</field>
+            <field name="model">res.partner</field>
+            <field eval="8888" name="priority"/>
+            <field name="arch" type="xml">
+                <tree string="Contacts" create="false">
+                    <field name="display_name" string="Name"/>
+                    <field name="function" invisible="1"/>
+                    <field name="phone" optional="show"/>
+                    <field name="email" optional="show"/>
+                    <field name="company_id" groups="base.group_multi_company"/>
+                    <field name="city" optional="hide"/>
+                    <field name="state_id" optional="hide"/>
+                    <field name="country_id" optional="hide"/>
+                    <field name="vat" optional="hide"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="is_company" invisible="1"/>
+                    <field name="parent_id" invisible="1"/>
+                    <field name="active" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="partner_filter_group_by_mail_action" model="ir.actions.act_window">
+            <field name="name">Duplicate email</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_partner_duplicate_mail_tree"/>
+            <field name="context">{'search_default_group_email': 1, 'search_default_my_assigned': 1}</field>
+        </record>
+
+    </data>
+
+</odoo>
+
